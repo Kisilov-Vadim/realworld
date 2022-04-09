@@ -1,22 +1,63 @@
 {
-  "extends": ["airbnb", "prettier"],
-  "plugins": ["prettier", "react-hooks"],
+  "extends": [
+    "airbnb",
+    "prettier",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": [
+    "prettier",
+    "react-hooks",
+    "unused-imports",
+    "@typescript-eslint"
+  ],
   "rules": {
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
     "prettier/prettier": "error",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
+    "no-restricted-exports": "off",
     "no-console": "warn",
-    "func-names": "off",
     "no-process-exit": "off",
     "object-shorthand": "off",
-    "class-methods-use-this": "off",
     "no-use-before-define": "off",
-    "react/style-prop-object": "off",
-    "react/jsx-filename-extension": [
-      1,
+    "global-require": "off",
+    "lines-between-class-members": "off",
+    "class-methods-use-this": "off",
+
+    // typescript-eslint
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-var-requires": "off",
+
+    // react
+    "react/function-component-definition": [2, {
+      "namedComponents": "arrow-function"
+    }],
+    "react/jsx-filename-extension": [1, {
+      "extensions": [".js", ".jsx", ".ts", ".tsx"]
+    }],
+    "react/hook-use-state": "error",
+    "react/jsx-tag-spacing": ["error", {
+      "beforeSelfClosing": "always"
+    }],
+    "react/jsx-closing-bracket-location": [1, {"selfClosing": "line-aligned"}],
+    "react/jsx-one-expression-per-line": [1, { "allow": "single-child" }],
+    
+    // react-hooks
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+
+    // unused-imports
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
       {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
       }
     ]
   }
