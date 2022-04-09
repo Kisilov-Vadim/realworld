@@ -19,7 +19,7 @@ class Store {
     this.user = user;
   }
 
-  setError(error: Error) {
+  setError(error?: Error) {
     this.error = error;
   }
 }

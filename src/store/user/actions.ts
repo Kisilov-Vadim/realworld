@@ -6,6 +6,7 @@ import {updateStore} from './helpers';
 import store from './store';
 
 export const getUser = async () => {
+  store.setError(undefined);
   store.setLoading(true);
 
   const response = await UserService.getUser();
@@ -14,6 +15,7 @@ export const getUser = async () => {
 };
 
 export const loginUser = async (userData: LoginUser) => {
+  store.setError(undefined);
   store.setLoading(true);
 
   const user = {
