@@ -4,7 +4,7 @@ import {User} from './types';
 
 class Store {
   isLoading = true;
-  error?: Error = undefined;
+  error?: string = undefined;
   user?: User = undefined;
 
   constructor() {
@@ -15,11 +15,11 @@ class Store {
     this.isLoading = isLoading;
   }
 
-  setUser(user: User) {
+  setUser(user?: User) {
     this.user = user;
   }
 
-  setError(error?: Error) {
+  setError(error?: string) {
     this.error = error;
   }
 }

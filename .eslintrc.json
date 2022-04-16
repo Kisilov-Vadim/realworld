@@ -19,13 +19,14 @@
     "import/extensions": "off",
     "import/prefer-default-export": "off",
     "no-restricted-exports": "off",
-    "no-console": "warn",
+    "no-console": ["warn", {"allow": ["warn", "error"]}],
     "no-process-exit": "off",
     "object-shorthand": "off",
     "no-use-before-define": "off",
     "global-require": "off",
     "lines-between-class-members": "off",
     "class-methods-use-this": "off",
+    "no-shadow": "off",
 
     // typescript-eslint
     "@typescript-eslint/explicit-function-return-type": "off",
@@ -44,7 +45,8 @@
     }],
     "react/jsx-closing-bracket-location": [1, {"selfClosing": "line-aligned"}],
     "react/jsx-one-expression-per-line": [1, { "allow": "single-child" }],
-    
+    "react/require-default-props": "off",
+
     // react-hooks
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",

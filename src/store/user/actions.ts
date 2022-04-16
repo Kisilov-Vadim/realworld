@@ -1,5 +1,4 @@
 import {UserService} from '../../services';
-import {LoginUser} from '../../services/User';
 
 import {updateStore} from './helpers';
 
@@ -22,7 +21,9 @@ export const loginUser = async (userData: LoginUser) => {
     user: userData,
   };
 
-  const response = await UserService.loginUser(user);
+  const response = await UserService.login(user);
 
   updateStore(response);
 };
+
+export const logoutUser = () => store.setUser(undefined);

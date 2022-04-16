@@ -1,4 +1,9 @@
 export type ResponseValue<V> = {
   value?: V;
-  error?: Error;
+  error?: string;
+};
+
+export type LimitParams = {
+  limit: number;
+  page: number;
 };
