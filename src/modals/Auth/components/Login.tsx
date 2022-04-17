@@ -21,8 +21,6 @@ const Login = observer(({goToSignUp}: LoginProps) => {
     onLogin,
   } = useAuth();
 
-  console.log('user', user);
-
   return (
     <>
       <Text text30BO blue30>
