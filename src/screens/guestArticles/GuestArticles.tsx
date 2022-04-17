@@ -1,6 +1,5 @@
 import React from 'react';
 import {FlatList, ListRenderItemInfo} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {observer} from 'mobx-react-lite';
 import {Spinner} from 'native-base';
 import {View} from 'react-native-ui-lib';
@@ -8,8 +7,8 @@ import {View} from 'react-native-ui-lib';
 import {ChipsList, ErrorScreen, ArticleCard} from '../../components';
 import {Article} from '../../store/articles/types';
 
-import SkeletonArticle from './SkeletonArticle';
-import useArticles from './useArticles';
+import SkeletonArticle from './SkeletonGuestArticle';
+import useGuestArticles from './useGuestArticles';
 
 const renderArticle = ({item}: ListRenderItemInfo<Article>) => (
   <ArticleCard article={item} />
@@ -25,7 +24,7 @@ const renderListFooterComponent = (isUpdating: boolean) => {
   return null;
 };
 
-const Articles = observer(() => {
+const GuestArticles = observer(() => {
   const {
     filteredArticles,
     chipsList,
@@ -36,7 +35,7 @@ const Articles = observer(() => {
     isTagsLoading,
     onLoadArticles,
     onRefreshArticles,
-  } = useArticles();
+  } = useGuestArticles();
 
   if (isLoading) {
     return <SkeletonArticle />;
@@ -47,7 +46,7 @@ const Articles = observer(() => {
   }
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <>
       <View paddingH-s5 paddingV-s3>
         <ChipsList isLoading={isTagsLoading} data={chipsList} />
       </View>
@@ -63,8 +62,8 @@ const Articles = observer(() => {
         onEndReachedThreshold={0.3}
         ListFooterComponent={() => renderListFooterComponent(isUpdating)}
       />
-    </SafeAreaView>
+    </>
   );
 });
 
-export default Articles;
+export default GuestArticles;

@@ -1,3 +1,4 @@
 export default {
-  posts: 'Posts',
+  guestArticles: 'Guest Articles',
+  authModal: 'Auth Modal',
 };

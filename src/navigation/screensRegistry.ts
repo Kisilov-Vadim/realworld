@@ -1,8 +1,12 @@
 import screenIds from './screenIds';
 
 export default {
-  [screenIds.posts]: {
-    name: screenIds.posts,
-    component: require('../screens').GlobalPostsScreen,
+  [screenIds.guestArticles]: {
+    name: screenIds.guestArticles,
+    component: require('../screens').GuestArticlesScreen,
+  },
+  [screenIds.authModal]: {
+    name: screenIds.authModal,
+    component: require('../modals').AuthModal,
   },
 };

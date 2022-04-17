@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text} from 'react-native-ui-lib';
 import {Button} from 'native-base';
 
-import {ErrorMessages} from '../core';
+import ErrorMessages from '../errorMessages';
 
 type ErrorScreenProps = {
   onPress: () => void;

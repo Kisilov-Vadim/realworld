@@ -6,7 +6,7 @@ import {loadTags} from '../../store/tags/actions';
 
 import useStore from './useStore';
 
-const useArticles = () => {
+const useGuestArticles = () => {
   const {
     isLoading,
     isRefreshing,
@@ -77,4 +77,4 @@ const useArticles = () => {
   };
 };
 
-export default useArticles;
+export default useGuestArticles;

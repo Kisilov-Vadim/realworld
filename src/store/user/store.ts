@@ -11,6 +11,10 @@ class Store {
     makeAutoObservable(this);
   }
 
+  getUser() {
+    return this.user;
+  }
+
   setLoading(isLoading: boolean) {
     this.isLoading = isLoading;
   }
@@ -21,6 +25,10 @@ class Store {
 
   setError(error?: string) {
     this.error = error;
+  }
+
+  forgetUser() {
+    this.user = undefined;
   }
 }
 

@@ -1,1 +1,1 @@
-export {default as GlobalPostsScreen} from './Articles';
+export {default as GuestArticlesScreen} from './guestArticles';

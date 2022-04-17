@@ -1,4 +1,4 @@
-import {ErrorMessages} from '../../core';
+import ErrorMessages from '../../errorMessages';
 import {TagsService} from '../../services';
 
 import store from './store';

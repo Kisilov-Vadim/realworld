@@ -5,7 +5,7 @@ import {View} from 'react-native-ui-lib';
 
 import {SkeletonArticleCard, SkeletonChipsList} from '../../components';
 
-const SkeletonArticle = () => (
+const SkeletonGuestArticle = () => (
   <SafeAreaView style={{flex: 1}}>
     <ScrollView>
       <View paddingH-s5 paddingV-s3>
@@ -16,4 +16,4 @@ const SkeletonArticle = () => (
   </SafeAreaView>
 );
 
-export default SkeletonArticle;
+export default SkeletonGuestArticle;

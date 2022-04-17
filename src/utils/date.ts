@@ -1,6 +1,6 @@
 import {format} from 'date-fns';
 
-import {ErrorMessages} from '../core';
+import ErrorMessages from '../errorMessages';
 
 export const formatDate = (date?: string | Date): string => {
   if (!date) {

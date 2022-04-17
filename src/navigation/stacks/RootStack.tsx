@@ -2,23 +2,40 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {NativeBaseProvider} from 'native-base';
+import {observer} from 'mobx-react-lite';
+import {RootSiblingParent} from 'react-native-root-siblings';
 
-import {ScreenIds, ScreensRegistry} from '..';
+import {UserStore} from '../../store';
 
-const RootStack = createStackNavigator();
+import MemberStackScreen from './MemberStack';
+import GuestStackScreen from './GuestStack';
 
-const RootStackScreen = () => (
-  <NativeBaseProvider>
-    <SafeAreaProvider>
-      <RootStack.Navigator>
-        <RootStack.Screen
-          name={ScreensRegistry[ScreenIds.posts].name}
-          component={ScreensRegistry[ScreenIds.posts].component}
-          options={{title: '', headerTransparent: true}}
-        />
-      </RootStack.Navigator>
-    </SafeAreaProvider>
-  </NativeBaseProvider>
-);
+const Stack = createStackNavigator();
+
+const RootStackScreen = observer(() => {
+  const user = UserStore.getUser();
+
+  return (
+    <NativeBaseProvider>
+      <SafeAreaProvider>
+        <RootSiblingParent>
+          <Stack.Navigator screenOptions={{headerShown: false}}>
+            {user ? (
+              <Stack.Screen
+                name="MemberStackScreen"
+                component={MemberStackScreen}
+              />
+            ) : (
+              <Stack.Screen
+                name="GuestStackScreen"
+                component={GuestStackScreen}
+              />
+            )}
+          </Stack.Navigator>
+        </RootSiblingParent>
+      </SafeAreaProvider>
+    </NativeBaseProvider>
+  );
+});
 
 export default RootStackScreen;
