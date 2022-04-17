@@ -2,7 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {LeftAvatarButton} from '../header';
-import {ScreenIds, ScreensRegistry, ScreenTitles} from '..';
+import {ScreenIds, ScreensRegistry} from '..';
 
 const GuestStack = createStackNavigator();
 
@@ -12,7 +12,7 @@ const GuestStackScreen = () => (
       name={ScreensRegistry[ScreenIds.guestArticles].name}
       component={ScreensRegistry[ScreenIds.guestArticles].component}
       options={{
-        title: ScreenTitles.guestArticles,
+        title: ScreensRegistry[ScreenIds.guestArticles].title,
         headerLeft: LeftAvatarButton,
       }}
     />
@@ -22,7 +22,7 @@ const GuestStackScreen = () => (
         name={ScreensRegistry[ScreenIds.authModal].name}
         component={ScreensRegistry[ScreenIds.authModal].component}
         options={{
-          title: ScreenTitles.authModal,
+          title: ScreensRegistry[ScreenIds.guestArticles].title,
         }}
       />
     </GuestStack.Group>
