@@ -6,27 +6,32 @@ import {ScreenIds, ScreensRegistry} from '..';
 
 const GuestStack = createStackNavigator();
 
-const GuestStackScreen = () => (
-  <GuestStack.Navigator>
-    <GuestStack.Screen
-      name={ScreensRegistry[ScreenIds.guestArticles].name}
-      component={ScreensRegistry[ScreenIds.guestArticles].component}
-      options={{
-        title: ScreensRegistry[ScreenIds.guestArticles].title,
-        headerLeft: LeftAvatarButton,
-      }}
-    />
+const GuestStackScreen = () => {
+  const articlesScreen = ScreensRegistry[ScreenIds.articles];
+  const authModal = ScreensRegistry[ScreenIds.authModal];
 
-    <GuestStack.Group screenOptions={{presentation: 'modal'}}>
+  return (
+    <GuestStack.Navigator>
       <GuestStack.Screen
-        name={ScreensRegistry[ScreenIds.authModal].name}
-        component={ScreensRegistry[ScreenIds.authModal].component}
+        name={articlesScreen.name}
+        component={articlesScreen.component}
         options={{
-          title: ScreensRegistry[ScreenIds.guestArticles].title,
+          title: articlesScreen.title,
+          headerLeft: LeftAvatarButton,
         }}
       />
-    </GuestStack.Group>
-  </GuestStack.Navigator>
-);
+
+      <GuestStack.Group screenOptions={{presentation: 'modal'}}>
+        <GuestStack.Screen
+          name={authModal.name}
+          component={authModal.component}
+          options={{
+            title: authModal.title,
+          }}
+        />
+      </GuestStack.Group>
+    </GuestStack.Navigator>
+  );
+};
 
 export default GuestStackScreen;

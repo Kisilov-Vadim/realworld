@@ -1,4 +1,4 @@
-import {ArticlesStore, TagsStore} from '../../store';
+import {ArticlesStore, TagsStore, UserStore} from '../../store';
 
 const useStore = () => {
   const {
@@ -14,6 +14,8 @@ const useStore = () => {
   const tags = TagsStore.getTags();
   const isTagsLoading = TagsStore.getIsLoading() && !tags.length;
 
+  const user = UserStore.getUser();
+
   return {
     isLoading,
     isRefreshing,
@@ -22,6 +24,7 @@ const useStore = () => {
     error,
     articles,
     tags,
+    user,
   };
 };
 

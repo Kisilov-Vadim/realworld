@@ -1,14 +1,14 @@
 import React from 'react';
 import {FlatList, ListRenderItemInfo} from 'react-native';
 import {observer} from 'mobx-react-lite';
-import {Spinner} from 'native-base';
-import {View} from 'react-native-ui-lib';
+import {Divider, Spinner} from 'native-base';
+import {Colors, View} from 'react-native-ui-lib';
 
 import {ChipsList, ErrorScreen, ArticleCard} from '../../components';
 import {Article} from '../../store/articles/types';
 
-import SkeletonMemberArticle from './SkeletonMemberArticle';
-import useUserArticles from './useMemberArticles';
+import SkeletonArticles from './SkeletonArticles';
+import useArticles from './useArticles';
 
 const renderArticle = ({item}: ListRenderItemInfo<Article>) => (
   <ArticleCard article={item} />
@@ -24,7 +24,7 @@ const renderListFooterComponent = (isUpdating: boolean) => {
   return null;
 };
 
-const MemberArticles = observer(() => {
+const Articles = observer(() => {
   const {
     filteredArticles,
     chipsList,
@@ -35,10 +35,10 @@ const MemberArticles = observer(() => {
     isTagsLoading,
     onLoadArticles,
     onRefreshArticles,
-  } = useUserArticles();
+  } = useArticles();
 
   if (isLoading) {
-    return <SkeletonMemberArticle />;
+    return <SkeletonArticles />;
   }
 
   if (error) {
@@ -60,10 +60,11 @@ const MemberArticles = observer(() => {
         onRefresh={onRefreshArticles}
         onEndReached={onLoadArticles}
         onEndReachedThreshold={0.3}
+        ItemSeparatorComponent={() => <Divider color={Colors.grey50} />}
         ListFooterComponent={() => renderListFooterComponent(isUpdating)}
       />
     </>
   );
 });
 
-export default MemberArticles;
+export default Articles;

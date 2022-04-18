@@ -1,3 +1,2 @@
-export {default as GuestArticlesScreen} from './guestArticles';
-export {default as MemberArticlesScreen} from './memberArticles';
-export {default as PersonalArticlesScreen} from './personalArticles';
+export {default as ArticlesScreen} from './articles';
+export {default as UserArticlesScreen} from './userArticles';

@@ -1,22 +1,25 @@
 import React from 'react';
-import {Button, Divider, Icon} from 'native-base';
+import {Button, Icon} from 'native-base';
 import {AntDesign} from '@expo/vector-icons';
-import {
-  View,
-  Avatar,
-  Text,
-  Colors,
-  TouchableOpacity,
-} from 'react-native-ui-lib';
+import {View, Avatar, Text, TouchableOpacity} from 'react-native-ui-lib';
+
+import ChipsList from '../chipsList';
 
 import useArticleCard, {ArticleCardProps, AVATAR_SIZE} from './useArticleCard';
-import ChipsList from '../chipsList';
 
 const ArticleCard = (props: ArticleCardProps) => {
   const {formattedArticleDate, tagsList} = useArticleCard(props);
 
   const {
-    article: {onPress, title, description, author, favorited, favoritesCount},
+    article: {
+      title,
+      description,
+      author,
+      favorited,
+      favoritesCount,
+      onPress,
+      onLikePress,
+    },
   } = props;
 
   return (
@@ -40,6 +43,7 @@ const ArticleCard = (props: ArticleCardProps) => {
             size="sm"
             colorScheme="success"
             variant={favorited ? undefined : 'outline'}
+            onPress={onLikePress}
             leftIcon={
               <Icon as={AntDesign} name={favorited ? 'heart' : 'hearto'} />
             }
@@ -59,7 +63,6 @@ const ArticleCard = (props: ArticleCardProps) => {
           <ChipsList isPreview data={tagsList} />
         </View>
       </View>
-      <Divider color={Colors.grey50} />
     </TouchableOpacity>
   );
 };

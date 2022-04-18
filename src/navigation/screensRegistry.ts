@@ -1,20 +1,15 @@
 import screenIds from './screenIds';
 
 export default {
-  [screenIds.guestArticles]: {
-    name: screenIds.guestArticles,
+  [screenIds.articles]: {
+    name: screenIds.articles,
     title: '',
-    component: require('../screens').GuestArticlesScreen,
+    component: require('../screens').ArticlesScreen,
   },
-  [screenIds.memberArticles]: {
-    name: screenIds.memberArticles,
+  [screenIds.userArticles]: {
+    name: screenIds.userArticles,
     title: '',
-    component: require('../screens').MemberArticlesScreen,
-  },
-  [screenIds.personalArticles]: {
-    name: screenIds.personalArticles,
-    title: '',
-    component: require('../screens').PersonalArticlesScreen,
+    component: require('../screens').UserArticlesScreen,
   },
   [screenIds.authModal]: {
     name: screenIds.authModal,

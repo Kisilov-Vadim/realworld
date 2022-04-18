@@ -1,12 +1,17 @@
 import {useCallback, useEffect, useMemo, useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 import {loadArticles, refreshArticles} from '../../store/articles/actions';
 import {Article} from '../../store/articles/types';
 import {loadTags} from '../../store/tags/actions';
 
 import useStore from './useStore';
+import {ScreenIds} from '../../navigation';
 
-const useMemberArticles = () => {
+const useArticles = () => {
+  // todo add type
+  const {push} = useNavigation();
+
   const {
     isLoading,
     isRefreshing,
@@ -15,6 +20,7 @@ const useMemberArticles = () => {
     tags,
     isTagsLoading,
     error,
+    user,
   } = useStore();
 
   const [selectedTag, setSelectedTag] = useState<string | undefined>();
@@ -35,13 +41,20 @@ const useMemberArticles = () => {
     console.log(article);
   }, []);
 
+  const onLikePress = useCallback(() => {
+    if (user) return;
+
+    push(ScreenIds.authModal);
+  }, [push, user]);
+
   const mappedArticles = useMemo(
     () =>
       articles.map((article) => ({
         ...article,
         onPress: () => onArticlePress(article),
+        onLikePress: () => onLikePress(),
       })),
-    [articles, onArticlePress]
+    [articles, onArticlePress, onLikePress]
   );
 
   const filteredArticles = useMemo(
@@ -74,7 +87,8 @@ const useMemberArticles = () => {
     onLoadArticles,
     onRefreshArticles,
     onArticlePress,
+    onLikePress,
   };
 };
 
-export default useMemberArticles;
+export default useArticles;

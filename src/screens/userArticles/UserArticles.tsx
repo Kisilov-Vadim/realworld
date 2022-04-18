@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text} from 'react-native-ui-lib';
 
-const PersonalArticles = () => (
+const UserArticles = () => (
   <View flex center>
-    <Text>Personal Articles Screen</Text>
+    <Text>User Articles Screen</Text>
   </View>
 );
 
-export default PersonalArticles;
+export default UserArticles;

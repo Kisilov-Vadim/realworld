@@ -27,8 +27,8 @@ const PersonalTabBarIcon = ({focused, color, size}: TabBarIcon) => {
 const Tab = createBottomTabNavigator();
 
 const MemberStackScreen = () => {
-  const memberArticles = ScreensRegistry[ScreenIds.memberArticles];
-  const personalArticles = ScreensRegistry[ScreenIds.personalArticles];
+  const articlesScreen = ScreensRegistry[ScreenIds.articles];
+  const userArticlesScreen = ScreensRegistry[ScreenIds.userArticles];
 
   return (
     <Tab.Navigator
@@ -38,19 +38,19 @@ const MemberStackScreen = () => {
       }}
     >
       <Tab.Screen
-        name={memberArticles.name}
-        component={memberArticles.component}
+        name={articlesScreen.name}
+        component={articlesScreen.component}
         options={{
-          title: memberArticles.title,
+          title: articlesScreen.title,
           tabBarIcon: HomeTabBarIcon,
         }}
       />
 
       <Tab.Screen
-        name={personalArticles.name}
-        component={personalArticles.component}
+        name={userArticlesScreen.name}
+        component={userArticlesScreen.component}
         options={{
-          title: personalArticles.title,
+          title: userArticlesScreen.title,
           tabBarIcon: PersonalTabBarIcon,
         }}
       />

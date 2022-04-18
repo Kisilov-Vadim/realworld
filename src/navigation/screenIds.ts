@@ -1,6 +1,5 @@
 export default {
-  guestArticles: 'Guest Articles',
-  memberArticles: 'Member Articles',
-  personalArticles: 'Personal Article',
+  articles: 'Articles',
+  userArticles: 'User Article',
   authModal: 'Auth Modal',
 };
