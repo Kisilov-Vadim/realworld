@@ -19,6 +19,7 @@ const ArticleCard = (props: ArticleCardProps) => {
       favoritesCount,
       onPress,
       onLikePress,
+      onAuthorPress,
     },
   } = props;
 
@@ -26,7 +27,7 @@ const ArticleCard = (props: ArticleCardProps) => {
     <TouchableOpacity onPress={onPress} disabled={!onPress}>
       <View padding-s5>
         <View row centerV spread marginB-s3>
-          <View row centerV>
+          <TouchableOpacity row centerV onPress={onAuthorPress}>
             <Avatar
               useAutoColors
               size={AVATAR_SIZE}
@@ -38,7 +39,7 @@ const ArticleCard = (props: ArticleCardProps) => {
               <Text text90>{author.username}</Text>
               <Text text100L>{formattedArticleDate}</Text>
             </View>
-          </View>
+          </TouchableOpacity>
           <Button
             size="sm"
             colorScheme="success"

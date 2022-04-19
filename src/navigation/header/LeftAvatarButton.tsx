@@ -2,18 +2,18 @@ import React, {useCallback} from 'react';
 import {FontAwesome5} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import {Avatar, Colors, TouchableOpacity} from 'react-native-ui-lib';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 import {UserStore} from '../../store';
 
-import {ScreenIds} from '..';
+import {RootStackParams} from '../types';
 
 const LeftAvatarButton = () => {
-  // todo add types to navigation
-  const {push} = useNavigation();
   const user = UserStore.getUser();
+  const {push} = useNavigation<StackNavigationProp<RootStackParams>>();
 
   const openAuthModal = useCallback(() => {
-    push(ScreenIds.authModal);
+    push('AuthModal');
   }, [push]);
 
   if (user) {

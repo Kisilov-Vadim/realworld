@@ -11,6 +11,11 @@ export default {
     title: '',
     component: require('../screens').UserArticlesScreen,
   },
+  [screenIds.profile]: {
+    name: screenIds.profile,
+    title: '',
+    component: require('../screens').ProfileScreen,
+  },
   [screenIds.authModal]: {
     name: screenIds.authModal,
     title: '',

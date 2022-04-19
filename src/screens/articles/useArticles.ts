@@ -47,14 +47,22 @@ const useArticles = () => {
     push(ScreenIds.authModal);
   }, [push, user]);
 
+  const onAuthorPress = useCallback(
+    (article: Article) => {
+      push(ScreenIds.profile, {author: article.author});
+    },
+    [push]
+  );
+
   const mappedArticles = useMemo(
     () =>
       articles.map((article) => ({
         ...article,
         onPress: () => onArticlePress(article),
         onLikePress: () => onLikePress(),
+        onAuthorPress: () => onAuthorPress(article),
       })),
-    [articles, onArticlePress, onLikePress]
+    [articles, onArticlePress, onAuthorPress, onLikePress]
   );
 
   const filteredArticles = useMemo(
@@ -87,7 +95,6 @@ const useArticles = () => {
     onLoadArticles,
     onRefreshArticles,
     onArticlePress,
-    onLikePress,
   };
 };
 

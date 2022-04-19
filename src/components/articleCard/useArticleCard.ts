@@ -7,6 +7,7 @@ export type ArticleCardProps = {
   article: Article & {
     onPress?: () => void;
     onLikePress?: () => void;
+    onAuthorPress?: () => void;
   };
 };
 

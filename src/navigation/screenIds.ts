@@ -1,5 +1,6 @@
 export default {
   articles: 'Articles',
-  userArticles: 'User Article',
-  authModal: 'Auth Modal',
+  userArticles: 'UserArticle',
+  profile: 'Profile',
+  authModal: 'AuthModal',
 };
