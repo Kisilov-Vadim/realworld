@@ -1,12 +1,10 @@
 import {makeAutoObservable} from 'mobx';
 
-export type AuthErrors = {
-  [id: string]: string[];
-};
+import {ResponseErrors} from '../../services/types';
 
 class Store {
   isLoading = false;
-  errors?: AuthErrors = undefined;
+  errors?: ResponseErrors = undefined;
 
   username = '';
   email = '';
@@ -55,7 +53,7 @@ class Store {
     this.isLoading = isLoading;
   }
 
-  setError(errors?: AuthErrors) {
+  setError(errors?: ResponseErrors) {
     this.errors = errors;
   }
 }

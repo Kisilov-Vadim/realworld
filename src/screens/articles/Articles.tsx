@@ -26,20 +26,16 @@ const renderListFooterComponent = (isUpdating: boolean) => {
 
 const Articles = observer(() => {
   const {
-    filteredArticles,
-    chipsList,
-    isLoading,
     error,
-    isRefreshing,
+    isLoading,
+    chipsList,
     isUpdating,
+    articlesList,
+    isRefreshing,
     isTagsLoading,
     onLoadArticles,
     onRefreshArticles,
   } = useArticles();
-
-  if (isLoading) {
-    return <SkeletonArticles />;
-  }
 
   if (error) {
     return <ErrorScreen onPress={onLoadArticles} message={error} />;
@@ -51,18 +47,22 @@ const Articles = observer(() => {
         <ChipsList isLoading={isTagsLoading} data={chipsList} />
       </View>
 
-      <FlatList
-        refreshing={isRefreshing}
-        keyExtractor={({slug}) => slug}
-        data={filteredArticles}
-        extraData={isRefreshing}
-        renderItem={renderArticle}
-        onRefresh={onRefreshArticles}
-        onEndReached={onLoadArticles}
-        onEndReachedThreshold={0.3}
-        ItemSeparatorComponent={() => <Divider color={Colors.grey50} />}
-        ListFooterComponent={() => renderListFooterComponent(isUpdating)}
-      />
+      {isLoading ? (
+        <SkeletonArticles />
+      ) : (
+        <FlatList
+          refreshing={isRefreshing}
+          keyExtractor={({slug}) => slug}
+          data={articlesList}
+          extraData={isRefreshing}
+          renderItem={renderArticle}
+          onRefresh={onRefreshArticles}
+          onEndReached={onLoadArticles}
+          onEndReachedThreshold={0.3}
+          ItemSeparatorComponent={() => <Divider color={Colors.grey50} />}
+          ListFooterComponent={() => renderListFooterComponent(isUpdating)}
+        />
+      )}
     </>
   );
 });

@@ -3,10 +3,12 @@ import {ArticlesStore, TagsStore, UserStore} from '../../store';
 const useStore = () => {
   const {
     error,
+    articles,
+    isLastPage,
     isRefreshing,
-    data: articles,
+    totalPagesCount,
     isLoading: isArticlesLoading,
-  } = ArticlesStore.getArticles();
+  } = ArticlesStore;
 
   const isLoading = isArticlesLoading && !articles.length;
   const isUpdating = isArticlesLoading && !!articles.length;
@@ -17,14 +19,16 @@ const useStore = () => {
   const user = UserStore.getUser();
 
   return {
-    isLoading,
-    isRefreshing,
-    isUpdating,
-    isTagsLoading,
+    user,
+    tags,
     error,
     articles,
-    tags,
-    user,
+    isLoading,
+    isUpdating,
+    isLastPage,
+    isRefreshing,
+    isTagsLoading,
+    totalPagesCount,
   };
 };
 

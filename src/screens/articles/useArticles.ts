@@ -1,40 +1,48 @@
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-import {loadArticles, refreshArticles} from '../../store/articles/actions';
 import {Article} from '../../store/articles/types';
 import {loadTags} from '../../store/tags/actions';
+import {ArticlesStore} from '../../store';
+import {RootStackParams} from '../../navigation/types';
 
 import useStore from './useStore';
-import {ScreenIds} from '../../navigation';
 
 const useArticles = () => {
-  // todo add type
-  const {push} = useNavigation();
+  const {push} = useNavigation<StackNavigationProp<RootStackParams>>();
 
   const {
-    isLoading,
-    isRefreshing,
-    isUpdating,
-    articles,
-    tags,
-    isTagsLoading,
-    error,
     user,
+    tags,
+    error,
+    articles,
+    isLoading,
+    isUpdating,
+    isLastPage,
+    isRefreshing,
+    isTagsLoading,
   } = useStore();
 
   const [selectedTag, setSelectedTag] = useState<string | undefined>();
+
+  const onChipsPress = useCallback(
+    (title: string) => {
+      const isUnselectTag = selectedTag === title;
+      setSelectedTag(isUnselectTag ? undefined : title);
+      ArticlesStore.fetchArticles({tag: isUnselectTag ? undefined : title});
+    },
+    [selectedTag]
+  );
 
   const chipsList = useMemo(
     () =>
       tags.map((title) => ({
         title,
         selected: selectedTag === title,
-        onPress: () => {
-          setSelectedTag(title === selectedTag ? undefined : title);
-        },
+        onPress: () => onChipsPress(title),
       })),
-    [selectedTag, tags]
+    [selectedTag, tags, onChipsPress]
   );
 
   const onArticlePress = useCallback((article: Article) => {
@@ -44,17 +52,17 @@ const useArticles = () => {
   const onLikePress = useCallback(() => {
     if (user) return;
 
-    push(ScreenIds.authModal);
+    push('AuthModal');
   }, [push, user]);
 
   const onAuthorPress = useCallback(
     (article: Article) => {
-      push(ScreenIds.profile, {author: article.author});
+      push('Profile', {author: article.author});
     },
     [push]
   );
 
-  const mappedArticles = useMemo(
+  const articlesList = useMemo(
     () =>
       articles.map((article) => ({
         ...article,
@@ -65,33 +73,29 @@ const useArticles = () => {
     [articles, onArticlePress, onAuthorPress, onLikePress]
   );
 
-  const filteredArticles = useMemo(
-    () =>
-      mappedArticles.filter(({tagList}) =>
-        selectedTag ? tagList.includes(selectedTag) : true
-      ),
-    [mappedArticles, selectedTag]
+  const onLoadArticles = useCallback(() => {
+    if (isLastPage) return;
+    ArticlesStore.fetchArticles({});
+  }, [isLastPage]);
+
+  const onRefreshArticles = useCallback(
+    () => ArticlesStore.refreshArticles(),
+    []
   );
 
-  const onLoadArticles = useCallback(() => {
-    loadArticles();
-  }, []);
-
-  const onRefreshArticles = useCallback(() => refreshArticles(), []);
-
   useEffect(() => {
-    loadArticles();
+    ArticlesStore.fetchArticles({});
     loadTags();
   }, []);
 
   return {
-    isLoading,
-    isRefreshing,
-    isUpdating,
-    isTagsLoading,
     error,
     chipsList,
-    filteredArticles,
+    isLoading,
+    isUpdating,
+    articlesList,
+    isRefreshing,
+    isTagsLoading,
     onLoadArticles,
     onRefreshArticles,
     onArticlePress,

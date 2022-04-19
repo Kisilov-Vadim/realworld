@@ -57,6 +57,4 @@ const requests = {
       .then(responseBody),
 };
 
-export const encode = encodeURI;
-
 export default requests;
