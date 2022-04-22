@@ -4,4 +4,5 @@ export default {
   userArticles: 'UserArticle',
   profile: 'Profile',
   authModal: 'AuthModal',
+  settingsModal: 'SettingsModal',
 };

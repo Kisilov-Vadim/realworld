@@ -1,4 +1,5 @@
-import {action, computed, makeAutoObservable} from 'mobx';
+import {action, makeAutoObservable} from 'mobx';
+
 import {UserStore} from '.';
 import {AuthService} from '../services';
 
@@ -28,7 +29,7 @@ class Store {
     this.errors = undefined;
   }
 
-  @computed get authValues() {
+  get authValues() {
     return {
       username: this.username,
       email: this.email,

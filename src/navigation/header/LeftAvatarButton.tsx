@@ -16,9 +16,13 @@ const LeftAvatarButton = () => {
     push('AuthModal');
   }, [push]);
 
+  const openSettingsModal = useCallback(() => {
+    push('SettingsModal');
+  }, [push]);
+
   if (user) {
     return (
-      <TouchableOpacity paddingH-s5>
+      <TouchableOpacity paddingH-s5 onPress={openSettingsModal}>
         <Avatar
           useAutoColors
           size={36}

@@ -26,4 +26,9 @@ export default {
     title: '',
     component: require('../modals').AuthModal,
   },
+  [screenIds.settingsModal]: {
+    name: screenIds.settingsModal,
+    title: 'Settings',
+    component: require('../modals').SettingsModal,
+  },
 };

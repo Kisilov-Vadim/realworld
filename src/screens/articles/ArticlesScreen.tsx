@@ -30,14 +30,16 @@ const ArticlesScreen = () => {
         <ChipsList isLoading={isTagsLoading} data={chipsList} />
       </View>
 
-      <Articles
-        isLoading={isLoading}
-        isUpdating={isUpdating}
-        isRefreshing={isRefreshing}
-        articles={articles}
-        onLoadArticles={onLoadArticles}
-        onRefreshArticles={onRefreshArticles}
-      />
+      <View flex>
+        <Articles
+          isLoading={isLoading}
+          isUpdating={isUpdating}
+          isRefreshing={isRefreshing}
+          articles={articles}
+          onLoadArticles={onLoadArticles}
+          onRefreshArticles={onRefreshArticles}
+        />
+      </View>
     </View>
   );
 };

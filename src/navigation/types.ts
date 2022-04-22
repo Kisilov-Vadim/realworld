@@ -14,6 +14,7 @@ export type MemberStackParams = {
   Article: {article: Article};
   Profile: {author: Author};
   UserArticles: undefined;
+  SettingsModal: undefined;
 };
 
 export type RootStackParams = GuestStackParams & MemberStackParams;
