@@ -4,8 +4,7 @@ import {Divider, Skeleton} from 'native-base';
 import {Colors, View} from 'react-native-ui-lib';
 
 import {SkeletonChipsList} from '../chipsList';
-
-import {AVATAR_SIZE} from './useArticleCard';
+import {AVATAR_SIZE} from '../articleAuthor/ArticleAuthor';
 
 type SkeletonArticleCardProps = {
   times?: number;

@@ -6,6 +6,11 @@ export default {
     title: '',
     component: require('../screens').ArticlesScreen,
   },
+  [screenIds.article]: {
+    name: screenIds.article,
+    title: '',
+    component: require('../screens').ArticleScreen,
+  },
   [screenIds.userArticles]: {
     name: screenIds.userArticles,
     title: '',

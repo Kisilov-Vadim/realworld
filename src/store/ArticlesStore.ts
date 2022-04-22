@@ -69,7 +69,7 @@ class Store {
     this.predicate = predicate;
   }
 
-  fetchArticles(predicate: Predicate) {
+  loadArticles(predicate: Predicate) {
     this.setPredicate(predicate);
     this.isLoading = true;
     this.error = undefined;

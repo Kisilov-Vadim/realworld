@@ -1,9 +1,19 @@
 import React, {useState} from 'react';
 import {View} from 'react-native-ui-lib';
+
 import {Login, SignUp} from './components';
 
-const Auth = () => {
-  const [isLoginMode, setIsLoginMode] = useState(true);
+type AuthModalProps = {
+  route: {
+    params?: {
+      isRegister?: boolean;
+    };
+  };
+};
+
+const Auth = ({route}: AuthModalProps) => {
+  const {params} = route;
+  const [isLoginMode, setIsLoginMode] = useState(!params?.isRegister);
 
   const goToLogin = () => setIsLoginMode(true);
   const goToSignUp = () => setIsLoginMode(false);

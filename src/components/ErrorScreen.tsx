@@ -5,7 +5,7 @@ import {Button} from 'native-base';
 import ErrorMessages from '../errorMessages';
 
 type ErrorScreenProps = {
-  onPress: () => void;
+  onPress?: () => void;
   message?: string;
 };
 
@@ -14,7 +14,7 @@ const ErrorScreen = ({onPress, message}: ErrorScreenProps) => (
     <Text text60 marginB-s5 grey10>
       {message || ErrorMessages.default}
     </Text>
-    <Button variant="outline" onPress={onPress}>
+    <Button variant="outline" onPress={onPress} disabled={!onPress}>
       Reload
     </Button>
   </View>

@@ -4,9 +4,9 @@ import {View} from 'react-native-ui-lib';
 
 import {ChipsList, ErrorScreen, Articles} from '../../components';
 
-import useArticles from './useArticles';
+import useArticlesScreen from './useArticlesScreen';
 
-const ArticlesScreen = observer(() => {
+const ArticlesScreen = () => {
   const {
     error,
     articles,
@@ -18,14 +18,14 @@ const ArticlesScreen = observer(() => {
     onLoadArticles,
     onRefreshArticles,
     onErrorReloadPress,
-  } = useArticles();
+  } = useArticlesScreen();
 
   if (error) {
     return <ErrorScreen onPress={onErrorReloadPress} message={error} />;
   }
 
   return (
-    <>
+    <View flexG>
       <View paddingH-s5 paddingV-s3>
         <ChipsList isLoading={isTagsLoading} data={chipsList} />
       </View>
@@ -38,8 +38,8 @@ const ArticlesScreen = observer(() => {
         onLoadArticles={onLoadArticles}
         onRefreshArticles={onRefreshArticles}
       />
-    </>
+    </View>
   );
-});
+};
 
-export default ArticlesScreen;
+export default observer(ArticlesScreen);

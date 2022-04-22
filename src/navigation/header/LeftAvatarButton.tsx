@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import {FontAwesome5} from '@expo/vector-icons';
+import {FontAwesome} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import {Avatar, Colors, TouchableOpacity} from 'react-native-ui-lib';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -32,7 +32,7 @@ const LeftAvatarButton = () => {
 
   return (
     <TouchableOpacity paddingH-s5 onPress={openAuthModal}>
-      <FontAwesome5 name="user-circle" size={30} color={Colors.black} />
+      <FontAwesome name="user-circle-o" size={30} color={Colors.white} />
     </TouchableOpacity>
   );
 };

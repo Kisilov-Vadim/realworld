@@ -1,1 +1,1 @@
-export {default} from './Articles';
+export {default} from './ArticlesScreen';

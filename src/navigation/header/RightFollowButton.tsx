@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import {View} from 'react-native-ui-lib';
+import {View, Text} from 'react-native-ui-lib';
 import {useNavigation} from '@react-navigation/native';
 import {Button} from 'native-base';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -22,8 +22,10 @@ const RightFollowButton = () => {
 
   return (
     <View paddingH-s2>
-      <Button onPress={onFollowPress} variant="link" colorScheme="blue">
-        Follow
+      <Button onPress={onFollowPress} variant="link">
+        <Text white text70BO>
+          Follow
+        </Text>
       </Button>
     </View>
   );

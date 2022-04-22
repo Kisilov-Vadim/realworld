@@ -1,5 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+import {Colors} from 'react-native-ui-lib';
 
 import {ScreenIds, ScreensRegistry} from '..';
 import {LeftAvatarButton, RightFollowButton} from '../header';
@@ -9,17 +10,32 @@ const GuestStack = createStackNavigator<GuestStackParams>();
 
 const GuestStackScreen = () => {
   const articlesScreen = ScreensRegistry[ScreenIds.articles];
+  const articleScreen = ScreensRegistry[ScreenIds.article];
   const profileScreen = ScreensRegistry[ScreenIds.profile];
   const authModal = ScreensRegistry[ScreenIds.authModal];
 
   return (
-    <GuestStack.Navigator>
+    <GuestStack.Navigator
+      screenOptions={{
+        headerTintColor: Colors.white,
+        headerStyle: {backgroundColor: Colors.blue30},
+        cardStyle: {backgroundColor: Colors.white},
+      }}
+    >
       <GuestStack.Screen
         name={articlesScreen.name as GuestStackParamsKeys}
         component={articlesScreen.component}
         options={{
           title: articlesScreen.title,
           headerLeft: LeftAvatarButton,
+        }}
+      />
+
+      <GuestStack.Screen
+        name={articleScreen.name as GuestStackParamsKeys}
+        component={articleScreen.component}
+        options={{
+          title: articleScreen.title,
         }}
       />
 

@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useMemo} from 'react';
+import {useCallback, useMemo} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 
@@ -19,7 +19,7 @@ const useArticlesHook = ({
   withTags,
   isProfile,
 }: UseArticlesHookParams) => {
-  const {push} = useNavigation<StackNavigationProp<RootStackParams>>();
+  const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
   const {user} = UserStore;
   const {
     error,
@@ -38,21 +38,24 @@ const useArticlesHook = ({
     [isArticlesLoading, storeArticles.length]
   );
 
-  const onArticlePress = useCallback((article: Article) => {
-    console.log(article);
-  }, []);
+  const onArticlePress = useCallback(
+    (article: Article) => {
+      navigation.push('Article', {article});
+    },
+    [navigation]
+  );
 
   const onLikePress = useCallback(() => {
     if (user) return;
 
-    push('AuthModal');
-  }, [push, user]);
+    navigation.push('AuthModal');
+  }, [navigation, user]);
 
   const onAuthorPress = useCallback(
     (article: Article) => {
-      push('Profile', {author: article.author});
+      navigation.push('Profile', {author: article.author});
     },
-    [push]
+    [navigation]
   );
 
   const articles = useMemo(
@@ -75,11 +78,11 @@ const useArticlesHook = ({
 
   const onLoadArticles = useCallback(() => {
     if (isLastPage) return;
-    ArticlesStore.fetchArticles(predicate);
+    ArticlesStore.loadArticles(predicate);
   }, [isLastPage, predicate]);
 
   const onErrorReloadPress = useCallback(() => {
-    ArticlesStore.fetchArticles(predicate);
+    ArticlesStore.loadArticles(predicate);
 
     if (withTags) {
       TagsStore.loadTags();
@@ -90,14 +93,6 @@ const useArticlesHook = ({
     () => ArticlesStore.refreshArticles(),
     []
   );
-
-  useEffect(() => {
-    ArticlesStore.fetchArticles(predicate);
-
-    if (withTags) {
-      TagsStore.loadTags();
-    }
-  }, []);
 
   return {
     error,

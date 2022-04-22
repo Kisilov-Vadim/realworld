@@ -1,14 +1,16 @@
-import {StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
+import {observer} from 'mobx-react-lite';
 import {View, Text, Avatar} from 'react-native-ui-lib';
+import {StackScreenProps} from '@react-navigation/stack';
 
 import {GuestStackParams} from '../../navigation/types';
 import {Articles, ErrorScreen} from '../../components';
-import useArticlesHook from '../../hooks/useArticlesHook';
 
-type ProfileProps = StackScreenProps<GuestStackParams, 'Profile'>;
+import useProfileScreen from './useProfileScreen';
 
-const Profile = ({route}: ProfileProps) => {
+type ProfileScreenProps = StackScreenProps<GuestStackParams, 'Profile'>;
+
+const ProfileScreen = ({route}: ProfileScreenProps) => {
   const {author} = route.params;
 
   const {
@@ -20,14 +22,11 @@ const Profile = ({route}: ProfileProps) => {
     onLoadArticles,
     onRefreshArticles,
     onErrorReloadPress,
-  } = useArticlesHook({
-    isProfile: true,
-    predicate: {author: author.username},
-  });
+  } = useProfileScreen({author});
 
   return (
     <>
-      <View center padding-s5 bg-white>
+      <View center padding-s6 bg-blue80>
         <Avatar
           useAutoColors
           size={50}
@@ -57,4 +56,4 @@ const Profile = ({route}: ProfileProps) => {
   );
 };
 
-export default Profile;
+export default observer(ProfileScreen);

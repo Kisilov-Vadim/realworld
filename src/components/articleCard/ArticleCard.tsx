@@ -1,14 +1,15 @@
 import React from 'react';
 import {Button, Icon} from 'native-base';
 import {AntDesign} from '@expo/vector-icons';
-import {View, Avatar, Text, TouchableOpacity} from 'react-native-ui-lib';
+import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 
 import ChipsList from '../chipsList';
 
-import useArticleCard, {ArticleCardProps, AVATAR_SIZE} from './useArticleCard';
+import {ArticleAuthor} from '..';
+import useArticleCard, {ArticleCardProps} from './useArticleCard';
 
 const ArticleCard = (props: ArticleCardProps) => {
-  const {formattedArticleDate, tagsList} = useArticleCard(props);
+  const {tagsList} = useArticleCard(props);
 
   const {
     article: {
@@ -17,6 +18,7 @@ const ArticleCard = (props: ArticleCardProps) => {
       author,
       favorited,
       favoritesCount,
+      updatedAt,
       onPress,
       onLikePress,
       onAuthorPress,
@@ -27,24 +29,12 @@ const ArticleCard = (props: ArticleCardProps) => {
     <TouchableOpacity onPress={onPress} disabled={!onPress}>
       <View padding-s5>
         <View row centerV spread marginB-s3>
-          <TouchableOpacity
-            row
-            centerV
+          <ArticleAuthor
+            name={author.username}
+            avatar={author.image}
+            date={updatedAt}
             onPress={onAuthorPress}
-            disabled={!onAuthorPress}
-          >
-            <Avatar
-              useAutoColors
-              size={AVATAR_SIZE}
-              source={{uri: author.image}}
-              name={author.username}
-              label={author.username}
-            />
-            <View marginL-s2>
-              <Text text90>{author.username}</Text>
-              <Text text100L>{formattedArticleDate}</Text>
-            </View>
-          </TouchableOpacity>
+          />
           <Button
             size="sm"
             colorScheme="success"
