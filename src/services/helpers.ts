@@ -1,4 +1,4 @@
-import {Article} from '../store/articles/types';
+import {Article} from '../store/types';
 
 import {LimitParams} from './types';
 

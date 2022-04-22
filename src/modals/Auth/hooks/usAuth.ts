@@ -1,7 +1,6 @@
 import {useCallback, useState, useEffect} from 'react';
 
 import {Keyboard} from 'react-native';
-import {loginUser, signUpUser} from '../../../store/auth/actions';
 import {AuthStore} from '../../../store';
 
 import {showErrorModals} from '../helpers';
@@ -27,12 +26,12 @@ const useAuth = () => {
 
   const onSignUp = useCallback(async () => {
     Keyboard.dismiss();
-    await signUpUser();
+    AuthStore.register();
   }, []);
 
   const onLogin = useCallback(async () => {
     Keyboard.dismiss();
-    await loginUser();
+    AuthStore.login();
   }, []);
 
   useEffect(() => {

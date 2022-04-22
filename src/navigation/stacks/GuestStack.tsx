@@ -1,8 +1,8 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {LeftAvatarButton, RightFollowButton} from '../header';
 import {ScreenIds, ScreensRegistry} from '..';
+import {LeftAvatarButton, RightFollowButton} from '../header';
 import {GuestStackParams, GuestStackParamsKeys} from '../types';
 
 const GuestStack = createStackNavigator<GuestStackParams>();

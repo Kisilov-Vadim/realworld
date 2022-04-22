@@ -1,44 +1,27 @@
 import React from 'react';
-import {FlatList, ListRenderItemInfo} from 'react-native';
 import {observer} from 'mobx-react-lite';
-import {Divider, Spinner} from 'native-base';
-import {Colors, View} from 'react-native-ui-lib';
+import {View} from 'react-native-ui-lib';
 
-import {ChipsList, ErrorScreen, ArticleCard} from '../../components';
-import {Article} from '../../store/articles/types';
+import {ChipsList, ErrorScreen, Articles} from '../../components';
 
-import SkeletonArticles from './SkeletonArticles';
 import useArticles from './useArticles';
 
-const renderArticle = ({item}: ListRenderItemInfo<Article>) => (
-  <ArticleCard article={item} />
-);
-
-const renderListFooterComponent = (isUpdating: boolean) => {
-  if (isUpdating)
-    return (
-      <View paddingV-s5>
-        <Spinner animating hidesWhenStopped size="lg" />
-      </View>
-    );
-  return null;
-};
-
-const Articles = observer(() => {
+const ArticlesScreen = observer(() => {
   const {
     error,
+    articles,
     isLoading,
     chipsList,
     isUpdating,
-    articlesList,
     isRefreshing,
     isTagsLoading,
     onLoadArticles,
     onRefreshArticles,
+    onErrorReloadPress,
   } = useArticles();
 
   if (error) {
-    return <ErrorScreen onPress={onLoadArticles} message={error} />;
+    return <ErrorScreen onPress={onErrorReloadPress} message={error} />;
   }
 
   return (
@@ -47,24 +30,16 @@ const Articles = observer(() => {
         <ChipsList isLoading={isTagsLoading} data={chipsList} />
       </View>
 
-      {isLoading ? (
-        <SkeletonArticles />
-      ) : (
-        <FlatList
-          refreshing={isRefreshing}
-          keyExtractor={({slug}) => slug}
-          data={articlesList}
-          extraData={isRefreshing}
-          renderItem={renderArticle}
-          onRefresh={onRefreshArticles}
-          onEndReached={onLoadArticles}
-          onEndReachedThreshold={0.3}
-          ItemSeparatorComponent={() => <Divider color={Colors.grey50} />}
-          ListFooterComponent={() => renderListFooterComponent(isUpdating)}
-        />
-      )}
+      <Articles
+        isLoading={isLoading}
+        isUpdating={isUpdating}
+        isRefreshing={isRefreshing}
+        articles={articles}
+        onLoadArticles={onLoadArticles}
+        onRefreshArticles={onRefreshArticles}
+      />
     </>
   );
 });
 
-export default Articles;
+export default ArticlesScreen;

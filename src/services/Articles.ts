@@ -1,4 +1,4 @@
-import {Article} from '../store/articles/types';
+import {Article} from '../store/types';
 
 import {limit} from './helpers';
 import requests from './requests';

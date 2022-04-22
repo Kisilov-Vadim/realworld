@@ -9,7 +9,7 @@ import {UserStore} from '../../store';
 import {RootStackParams} from '../types';
 
 const LeftAvatarButton = () => {
-  const user = UserStore.getUser();
+  const {user} = UserStore;
   const {push} = useNavigation<StackNavigationProp<RootStackParams>>();
 
   const openAuthModal = useCallback(() => {

@@ -5,8 +5,7 @@ import _superagent, {
   Response,
 } from 'superagent';
 
-import {UserStore} from '../store';
-import {logout} from '../store/auth/actions';
+import {AuthStore, UserStore} from '../store';
 
 export const API_URI = 'https://api.realworld.io/api';
 
@@ -14,7 +13,7 @@ const superagent = superagentPromise(_superagent, global.Promise);
 
 const handleErrors = (err: ResponseError) => {
   if (err && err.response && err.response.status === 401) {
-    logout();
+    AuthStore.logout();
   }
 
   return err;

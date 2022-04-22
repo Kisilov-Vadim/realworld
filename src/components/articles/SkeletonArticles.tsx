@@ -1,11 +1,11 @@
 import React from 'react';
 import {ScrollView} from 'react-native';
 
-import {SkeletonArticleCard} from '../../components';
+import {SkeletonArticleCard} from '..';
 
 const SkeletonArticles = () => (
   <ScrollView>
-    <SkeletonArticleCard />
+    <SkeletonArticleCard times={2} />
   </ScrollView>
 );
 

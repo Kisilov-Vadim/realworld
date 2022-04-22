@@ -1,4 +1,4 @@
-import {Author} from '../store/articles/types';
+import {Author} from '../store/types';
 
 export type GuestStackParamsKeys = keyof GuestStackParams;
 export type GuestStackParams = {

@@ -1,4 +1,4 @@
-import {User} from '../store/user/types';
+import {User} from '../store/types';
 
 import requests from './requests';
 
@@ -18,10 +18,10 @@ export type ResponseUser = {
 };
 
 export default {
-  get: (): ResponseUser => requests.get('/user'),
-  login: (user: LoginUser): ResponseUser =>
+  get: (): Promise<ResponseUser> => requests.get('/user'),
+  login: (user: LoginUser): Promise<ResponseUser> =>
     requests.post('/users/login', {user}),
-  register: (user: RegisterUser): ResponseUser =>
+  register: (user: RegisterUser): Promise<ResponseUser> =>
     requests.post('/users', {user}),
-  put: (user: User): ResponseUser => requests.put('/user', {user}),
+  put: (user: User): Promise<ResponseUser> => requests.put('/user', {user}),
 };

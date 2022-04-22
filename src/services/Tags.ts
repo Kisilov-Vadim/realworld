@@ -1,5 +1,9 @@
 import requests from './requests';
 
+export type TagsResponse = {
+  tags: string[];
+};
+
 export default {
-  get: (): {tags: string[]} => requests.get('/tags'),
+  get: (): Promise<TagsResponse> => requests.get('/tags'),
 };

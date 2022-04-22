@@ -1,13 +1,13 @@
-import {action, computed, makeAutoObservable} from 'mobx';
-import ErrorMessages from '../../errorMessages';
+import {action, makeAutoObservable} from 'mobx';
+import ErrorMessages from '../errorMessages';
 
-import {ArticlesService} from '../../services';
+import {ArticlesService} from '../services';
 
-import {LIMIT} from '../constants';
+import {LIMIT} from './constants';
 
 import {Article} from './types';
 
-type Predicate = {
+export type Predicate = {
   myFeed?: string;
   favoritedBy?: string;
   tag?: string;
@@ -52,7 +52,7 @@ class Store {
     return ArticlesService.all({page: this.page, limit: LIMIT});
   }
 
-  @computed get articles() {
+  get articles() {
     return [...this.articlesMap.values()];
   }
 
@@ -71,9 +71,9 @@ class Store {
 
   fetchArticles(predicate: Predicate) {
     this.setPredicate(predicate);
-
     this.isLoading = true;
     this.error = undefined;
+
     this.$request()
       .then(
         action(({articles, articlesCount}) => {
@@ -104,6 +104,7 @@ class Store {
     this.isRefreshing = true;
     this.error = undefined;
     this.page = 0;
+
     this.$request()
       .then(
         action(({articles, articlesCount}) => {

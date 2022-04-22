@@ -27,7 +27,12 @@ const ArticleCard = (props: ArticleCardProps) => {
     <TouchableOpacity onPress={onPress} disabled={!onPress}>
       <View padding-s5>
         <View row centerV spread marginB-s3>
-          <TouchableOpacity row centerV onPress={onAuthorPress}>
+          <TouchableOpacity
+            row
+            centerV
+            onPress={onAuthorPress}
+            disabled={!onAuthorPress}
+          >
             <Avatar
               useAutoColors
               size={AVATAR_SIZE}

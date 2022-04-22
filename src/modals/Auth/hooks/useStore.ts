@@ -1,9 +1,7 @@
 import {AuthStore} from '../../../store';
 
 const useStore = () => {
-  const isLoading = AuthStore.getIsLoading();
-  const user = AuthStore.getAuthValues();
-  const errors = AuthStore.getErrors();
+  const {isLoading, errors, authValues: user} = AuthStore;
 
   return {
     isLoading,

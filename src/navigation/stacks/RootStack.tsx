@@ -13,7 +13,7 @@ import GuestStackScreen from './GuestStack';
 const Stack = createStackNavigator();
 
 const RootStackScreen = observer(() => {
-  const user = UserStore.getUser();
+  const {user} = UserStore;
 
   return (
     <NativeBaseProvider>
