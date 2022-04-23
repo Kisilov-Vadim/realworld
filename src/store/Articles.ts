@@ -1,11 +1,11 @@
-import {action, makeAutoObservable} from 'mobx';
-import ErrorMessages from '../errorMessages';
+import {ResponseError} from 'superagent';
+import {action, computed, makeAutoObservable} from 'mobx';
 
 import {ArticlesService} from '../services';
-
-import {LIMIT} from './constants';
+import ErrorMessages from '../errorMessages';
 
 import {Article} from './types';
+import {LIMIT} from './constants';
 
 export type Predicate = {
   myFeed?: string;
@@ -25,6 +25,14 @@ class Store {
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  getArticle(slug: string) {
+    return this.articlesMap.get(slug);
+  }
+
+  @computed get articles() {
+    return [...this.articlesMap.values()];
   }
 
   $request() {
@@ -50,10 +58,6 @@ class Store {
       });
 
     return ArticlesService.all({page: this.page, limit: LIMIT});
-  }
-
-  get articles() {
-    return [...this.articlesMap.values()];
   }
 
   clear() {
@@ -128,6 +132,42 @@ class Store {
           this.isRefreshing = false;
         })
       );
+  }
+
+  favorite(slug: string) {
+    const article = this.getArticle(slug);
+    if (article && !article.favorited) {
+      article.favorited = true;
+      article.favoritesCount += 1;
+      return ArticlesService.favorite(slug).catch(
+        action((err: ResponseError) => {
+          console.error(err);
+          article.favorited = false;
+          article.favoritesCount -= 1;
+          throw new Error();
+        })
+      );
+    }
+
+    return Promise.resolve();
+  }
+
+  unFavorite(slug: string) {
+    const article = this.getArticle(slug);
+    if (article && article.favorited) {
+      article.favorited = false;
+      article.favoritesCount -= 1;
+      return ArticlesService.unfavorite(slug).catch(
+        action((err: ResponseError) => {
+          console.error(err);
+          article.favorited = true;
+          article.favoritesCount += 1;
+          throw new Error();
+        })
+      );
+    }
+
+    return Promise.resolve();
   }
 }
 

@@ -37,7 +37,7 @@ const ArticleCard = (props: ArticleCardProps) => {
           />
           <Button
             size="sm"
-            colorScheme="success"
+            colorScheme="blue"
             variant={favorited ? undefined : 'outline'}
             onPress={onLikePress}
             leftIcon={

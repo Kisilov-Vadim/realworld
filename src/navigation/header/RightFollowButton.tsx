@@ -4,21 +4,14 @@ import {useNavigation} from '@react-navigation/native';
 import {Button} from 'native-base';
 import {StackNavigationProp} from '@react-navigation/stack';
 
-import {UserStore} from '../../store';
-
 import {RootStackParams} from '../types';
 
 const RightFollowButton = () => {
-  const {user} = UserStore;
-
   const {push} = useNavigation<StackNavigationProp<RootStackParams>>();
 
   const onFollowPress = useCallback(() => {
-    // todo add functionality
-    if (user) return;
-
     push('AuthModal');
-  }, [push, user]);
+  }, [push]);
 
   return (
     <View paddingH-s2>

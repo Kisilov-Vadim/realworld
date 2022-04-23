@@ -24,6 +24,8 @@ const ArticlesScreen = () => {
     return <ErrorScreen onPress={onErrorReloadPress} message={error} />;
   }
 
+  console.log('articles', articles);
+
   return (
     <View flexG>
       <View paddingH-s5 paddingV-s3>

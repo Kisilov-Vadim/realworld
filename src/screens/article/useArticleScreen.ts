@@ -3,12 +3,14 @@ import {useEffect, useCallback, useMemo} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 
-import {CommentsStore} from '../../store';
+import {ArticlesStore, CommentsStore} from '../../store';
 import {Article, Author} from '../../store/types';
 import {RootStackParams} from '../../navigation/types';
 import useShowErrorHook from '../../hooks/useShowErrorHook';
 
 import useStore from './useStore';
+import {showErrorToast} from '../../utils/toast';
+import ErrorMessages from '../../errorMessages';
 
 type UseArticleScreenParams = {
   article: Article;
@@ -31,12 +33,12 @@ const useArticleScreen = ({article}: UseArticleScreenParams) => {
   );
 
   const onAuthorPress = useCallback(() => {
-    push('Profile', {author: article.author});
+    push('Profile', {username: article.author.username});
   }, [article.author, push]);
 
   const onCommentAuthorPress = useCallback(
     (author: Author) => {
-      push('Profile', {author});
+      push('Profile', {username: author.username});
     },
     [push]
   );
@@ -66,19 +68,21 @@ const useArticleScreen = ({article}: UseArticleScreenParams) => {
     CommentsStore.loadComments(article.slug);
   }, [article.slug]);
 
-  const onFavoritePress = useCallback(() => {
-    // todo add functionality
-    if (user) return;
+  const onLikePress = useCallback(() => {
+    if (!user) {
+      return push('AuthModal');
+    }
 
-    push('AuthModal');
-  }, [push, user]);
-
-  const onFollowPress = useCallback(() => {
-    // todo add functionality
-    if (user) return;
-
-    push('AuthModal');
-  }, [push, user]);
+    try {
+      if (article.favorited) {
+        ArticlesStore.unFavorite(article.slug);
+      } else {
+        ArticlesStore.favorite(article.slug);
+      }
+    } catch (err) {
+      showErrorToast({title: ErrorMessages.default});
+    }
+  }, [article.favorited, article.slug, push, user]);
 
   useEffect(() => {
     CommentsStore.loadComments(article.slug);
@@ -89,9 +93,8 @@ const useArticleScreen = ({article}: UseArticleScreenParams) => {
     commentsError,
     mappedComments,
     isCommentsLoading,
+    onLikePress,
     onAuthorPress,
-    onFollowPress,
-    onFavoritePress,
     openAuthLoginModal,
     openAuthRegisterModal,
     onCommentsErrorPress,

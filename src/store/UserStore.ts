@@ -7,7 +7,7 @@ import {ResponseUser} from '../services/Auth';
 import ErrorMessages from '../errorMessages';
 
 import {User} from './types';
-import ArticlesStore from './ArticlesStore';
+import ArticlesStore from './Articles';
 
 const cache = new Cache({
   namespace: 'myapp',

@@ -27,6 +27,7 @@
     "lines-between-class-members": "off",
     "class-methods-use-this": "off",
     "no-shadow": "off",
+    "consistent-return": "off",
 
     // typescript-eslint
     "@typescript-eslint/explicit-function-return-type": "off",

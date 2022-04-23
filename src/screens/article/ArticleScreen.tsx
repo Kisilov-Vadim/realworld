@@ -1,8 +1,9 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
 import {ScrollView} from 'react-native';
 import {Button, Divider, Icon} from 'native-base';
-import {View, Text, Colors} from 'react-native-ui-lib';
+import {View, Text} from 'react-native-ui-lib';
 import {observer} from 'mobx-react-lite';
 
 import {AntDesign} from '@expo/vector-icons';
@@ -21,9 +22,8 @@ const ArticleScreen = ({route}: ArticleScreenProps) => {
     commentsError,
     mappedComments,
     isCommentsLoading,
+    onLikePress,
     onAuthorPress,
-    onFollowPress,
-    onFavoritePress,
     openAuthLoginModal,
     onCommentsErrorPress,
     openAuthRegisterModal,
@@ -46,9 +46,9 @@ const ArticleScreen = ({route}: ArticleScreenProps) => {
           <Button
             mr={1}
             size="sm"
-            colorScheme="red"
+            colorScheme="blue"
             variant={article.favorited ? undefined : 'outline'}
-            onPress={onFavoritePress}
+            onPress={onLikePress}
             leftIcon={
               <Icon
                 as={AntDesign}
@@ -57,23 +57,6 @@ const ArticleScreen = ({route}: ArticleScreenProps) => {
             }
           >
             {article.favoritesCount}
-          </Button>
-
-          <Button
-            size="sm"
-            colorScheme="blue"
-            variant={article.favorited ? undefined : 'outline'}
-            onPress={onFollowPress}
-            leftIcon={<AntDesign name="plus" size={16} color={Colors.blue30} />}
-          >
-            <View row center>
-              <Text text80 blue40 marginR-s1>
-                Follow
-              </Text>
-              <Text text80 blue40>
-                {article.author.username}
-              </Text>
-            </View>
           </Button>
         </View>
       </View>

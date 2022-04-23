@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {observer} from 'mobx-react-lite';
 import {View, Text, Avatar} from 'react-native-ui-lib';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -7,22 +7,52 @@ import {GuestStackParams} from '../../navigation/types';
 import {Articles, ErrorScreen} from '../../components';
 
 import useProfileScreen from './useProfileScreen';
+import NavigationRightButton from './NavigationRightButton';
+import SkeletonProfileScreen from './SkeletonProfileScreen';
 
 type ProfileScreenProps = StackScreenProps<GuestStackParams, 'Profile'>;
 
-const ProfileScreen = ({route}: ProfileScreenProps) => {
-  const {author} = route.params;
+const ProfileScreen = ({route, navigation}: ProfileScreenProps) => {
+  const {username} = route.params;
 
   const {
-    error,
+    profile,
     articles,
-    isLoading,
     isUpdating,
     isRefreshing,
+    isProfileError,
+    isArticlesError,
+    isArticlesLoading,
+    isProfileLoading,
+    onFollowPress,
     onLoadArticles,
     onRefreshArticles,
     onErrorReloadPress,
-  } = useProfileScreen({author});
+    onProfileErrorReload,
+  } = useProfileScreen({username});
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: profile
+        ? () => (
+            <NavigationRightButton
+              isFollowed={profile.following}
+              onPress={onFollowPress}
+            />
+          )
+        : undefined,
+    });
+  }, [navigation, onFollowPress, profile]);
+
+  if (isProfileLoading) {
+    return <SkeletonProfileScreen />;
+  }
+
+  if (isProfileError) {
+    return (
+      <ErrorScreen message={isProfileError} onPress={onProfileErrorReload} />
+    );
+  }
 
   return (
     <>
@@ -30,20 +60,20 @@ const ProfileScreen = ({route}: ProfileScreenProps) => {
         <Avatar
           useAutoColors
           size={50}
-          source={{uri: author.image}}
-          name={author.username}
-          label={author.username}
+          source={{uri: profile?.image}}
+          name={profile?.username}
+          label={profile?.username}
         />
         <Text marginT-s2 text60 blue30>
-          {author.username}
+          {profile?.username}
         </Text>
       </View>
       <View flex>
-        {error ? (
+        {isArticlesError ? (
           <ErrorScreen onPress={onErrorReloadPress} />
         ) : (
           <Articles
-            isLoading={isLoading}
+            isLoading={isArticlesLoading}
             isUpdating={isUpdating}
             isRefreshing={isRefreshing}
             articles={articles}

@@ -14,6 +14,8 @@ export default {
     requests.get(`/articles?${limit(params)}`),
   feed: (params: LimitParams): Promise<ResArticle> =>
     requests.get(`/articles/feed?${limit(params)}`),
+  favorite: (slug: string) => requests.post(`/articles/${slug}/favorite`, {}),
+  unfavorite: (slug: string) => requests.del(`/articles/${slug}/favorite`),
   favoritedBy: ({
     author,
     ...rest

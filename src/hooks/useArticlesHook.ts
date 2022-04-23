@@ -3,7 +3,9 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 
 import {Article} from '../store/types';
-import {Predicate} from '../store/ArticlesStore';
+import ErrorMessages from '../errorMessages';
+import {showErrorToast} from '../utils/toast';
+import {Predicate} from '../store/Articles';
 import {RootStackParams} from '../navigation/types';
 import {ArticlesStore, TagsStore, UserStore} from '../store';
 import {ArticleCardType} from '../components/articleCard/useArticleCard';
@@ -45,36 +47,45 @@ const useArticlesHook = ({
     [navigation]
   );
 
-  const onLikePress = useCallback(() => {
-    if (user) return;
+  const onLikePress = useCallback(
+    (slug: string, favorited: boolean) => {
+      if (!user) {
+        return navigation.push('AuthModal');
+      }
 
-    navigation.push('AuthModal');
-  }, [navigation, user]);
+      try {
+        if (favorited) {
+          ArticlesStore.unFavorite(slug);
+        } else {
+          ArticlesStore.favorite(slug);
+        }
+      } catch (err) {
+        showErrorToast({title: ErrorMessages.default});
+      }
+    },
+    [navigation, user]
+  );
 
   const onAuthorPress = useCallback(
     (article: Article) => {
-      navigation.push('Profile', {author: article.author});
+      navigation.push('Profile', {username: article.author.username});
     },
     [navigation]
   );
 
-  const articles = useMemo(
-    () =>
-      storeArticles.map((article) => {
-        const newArticle: ArticleCardType = {
-          ...article,
-          onPress: () => onArticlePress(article),
-          onLikePress: () => onLikePress(),
-        };
+  const articles = storeArticles.map((article) => {
+    const newArticle: ArticleCardType = {
+      ...article,
+      onPress: () => onArticlePress(article),
+      onLikePress: () => onLikePress(article.slug, article.favorited),
+    };
 
-        if (!isProfile) {
-          newArticle.onAuthorPress = () => onAuthorPress(article);
-        }
+    if (!isProfile) {
+      newArticle.onAuthorPress = () => onAuthorPress(article);
+    }
 
-        return newArticle;
-      }),
-    [storeArticles, isProfile, onArticlePress, onLikePress, onAuthorPress]
-  );
+    return newArticle;
+  });
 
   const onLoadArticles = useCallback(() => {
     if (isLastPage) return;

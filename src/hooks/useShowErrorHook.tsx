@@ -1,5 +1,5 @@
 import {useEffect, useMemo} from 'react';
-import {Toast} from 'native-base';
+import {showErrorToast} from '../utils/toast';
 
 type UseShowErrorParams = {
   isEmpty: boolean;
@@ -12,7 +12,7 @@ const useShowErrorHook = ({error, isEmpty}: UseShowErrorParams) => {
   useEffect(() => {
     if (showErrorScreen || !error) return;
 
-    Toast.show({title: error, bgColor: 'red.500', duration: 3000});
+    showErrorToast({title: error});
   }, [error, showErrorScreen]);
 
   return {
