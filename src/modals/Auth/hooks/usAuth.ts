@@ -2,8 +2,7 @@ import {useCallback, useState, useEffect} from 'react';
 
 import {Keyboard} from 'react-native';
 import {AuthStore} from '../../../store';
-
-import {showErrorModals} from '../helpers';
+import {showErrorModals} from '../../../utils/errors';
 
 import useStore from './useStore';
 

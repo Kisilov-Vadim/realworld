@@ -4,7 +4,6 @@ import {Cache} from 'react-native-cache';
 
 import {AuthService} from '../services';
 import {ResponseUser} from '../services/Auth';
-import ErrorMessages from '../errorMessages';
 
 import {User} from './types';
 import ArticlesStore from './Articles';
@@ -20,6 +19,7 @@ const cache = new Cache({
 
 class Store {
   isLoading = true;
+  isUpdating = false;
   error?: string = undefined;
   user?: User = undefined;
 
@@ -47,6 +47,7 @@ class Store {
 
   setUser(user?: User) {
     this.user = user;
+    this.error = undefined;
     this.$updateStorage(user);
 
     ArticlesStore.clear();
@@ -54,6 +55,7 @@ class Store {
 
   loadUser() {
     this.isLoading = true;
+    this.error = undefined;
 
     AuthService.get()
       .then(
@@ -61,15 +63,37 @@ class Store {
           this.setUser(user);
         })
       )
+      .finally(
+        action(() => {
+          this.isLoading = false;
+        })
+      );
+  }
+
+  updateUser(newUser: User) {
+    this.isUpdating = true;
+    this.error = undefined;
+
+    return AuthService.put(newUser)
+      .then(
+        action(({user}) => {
+          this.user = user;
+        })
+      )
       .catch(
         action((err) => {
           console.error(err);
-          this.error = ErrorMessages.default;
+
+          if (err?.response?.body) {
+            this.error = err?.response?.body;
+          }
+
+          throw err;
         })
       )
       .finally(
         action(() => {
-          this.isLoading = false;
+          this.isUpdating = false;
         })
       );
   }
