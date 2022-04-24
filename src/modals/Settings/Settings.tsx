@@ -2,6 +2,7 @@ import React from 'react';
 import {ScrollView} from 'react-native';
 import {View} from 'react-native-ui-lib';
 import {observer} from 'mobx-react-lite';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {Box, Button, Input, Spinner, TextArea} from 'native-base';
 
 import {UserStore} from '../../store';
@@ -21,7 +22,7 @@ const Settings = () => {
   } = useSettings();
 
   return (
-    <View flexG>
+    <SafeAreaView style={{flex: 1}}>
       <View flexG paddingH-s5 paddingT-s10>
         <ScrollView>
           <Box alignItems="center">
@@ -84,7 +85,7 @@ const Settings = () => {
       >
         Logout
       </Button>
-    </View>
+    </SafeAreaView>
   );
 };
 

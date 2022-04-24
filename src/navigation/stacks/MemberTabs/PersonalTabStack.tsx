@@ -13,7 +13,6 @@ const PersonalTabStackScreen = () => {
   const profileScreen = ScreensRegistry[ScreenIds.profile];
   const articlesScreen = ScreensRegistry[ScreenIds.articles];
   const userArticlesScreen = ScreensRegistry[ScreenIds.userArticles];
-  const settingsModal = ScreensRegistry[ScreenIds.settingsModal];
 
   return (
     <PersonalTabStack.Navigator
@@ -55,16 +54,6 @@ const PersonalTabStackScreen = () => {
           title: profileScreen.title,
         }}
       />
-
-      <PersonalTabStack.Group screenOptions={{presentation: 'modal'}}>
-        <PersonalTabStack.Screen
-          name={settingsModal.name as MemberStackParamsKeys}
-          component={settingsModal.component}
-          options={{
-            title: settingsModal.title,
-          }}
-        />
-      </PersonalTabStack.Group>
     </PersonalTabStack.Navigator>
   );
 };
