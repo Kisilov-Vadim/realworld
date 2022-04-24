@@ -21,13 +21,12 @@ const ProfileScreen = ({route, navigation}: ProfileScreenProps) => {
     isUpdating,
     isRefreshing,
     isProfileError,
-    isArticlesError,
+    articlesError,
     isArticlesLoading,
     isProfileLoading,
     onFollowPress,
     onLoadArticles,
     onRefreshArticles,
-    onErrorReloadPress,
     onProfileErrorReload,
   } = useProfileScreen({username});
 
@@ -69,18 +68,15 @@ const ProfileScreen = ({route, navigation}: ProfileScreenProps) => {
         </Text>
       </View>
       <View flex>
-        {isArticlesError ? (
-          <ErrorScreen onPress={onErrorReloadPress} />
-        ) : (
-          <Articles
-            isLoading={isArticlesLoading}
-            isUpdating={isUpdating}
-            isRefreshing={isRefreshing}
-            articles={articles}
-            onLoadArticles={onLoadArticles}
-            onRefreshArticles={onRefreshArticles}
-          />
-        )}
+        <Articles
+          error={articlesError}
+          isLoading={isArticlesLoading}
+          isUpdating={isUpdating}
+          isRefreshing={isRefreshing}
+          articles={articles}
+          onLoadArticles={onLoadArticles}
+          onRefreshArticles={onRefreshArticles}
+        />
       </View>
     </>
   );

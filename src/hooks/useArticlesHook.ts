@@ -9,6 +9,7 @@ import {Predicate} from '../store/Articles';
 import {RootStackParams} from '../navigation/types';
 import {ArticlesStore, TagsStore, UserStore} from '../store';
 import {ArticleCardType} from '../components/articleCard/useArticleCard';
+import useShowErrorHook from './useShowErrorHook';
 
 type UseArticlesHookParams = {
   predicate: Predicate;
@@ -87,6 +88,11 @@ const useArticlesHook = ({
     return newArticle;
   });
 
+  const {error: articlesError} = useShowErrorHook({
+    error,
+    isEmpty: !!articles.length,
+  });
+
   const onLoadArticles = useCallback(() => {
     if (isLastPage) return;
     ArticlesStore.loadArticles(predicate);
@@ -106,11 +112,11 @@ const useArticlesHook = ({
   );
 
   return {
-    error,
     articles,
     isLoading,
     isUpdating,
     isRefreshing,
+    articlesError,
     onLoadArticles,
     onRefreshArticles,
     onErrorReloadPress,

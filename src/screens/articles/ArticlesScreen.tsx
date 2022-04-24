@@ -8,23 +8,21 @@ import useArticlesScreen from './useArticlesScreen';
 
 const ArticlesScreen = () => {
   const {
-    error,
     articles,
     isLoading,
     chipsList,
     isUpdating,
     isRefreshing,
+    articlesError,
     isTagsLoading,
     onLoadArticles,
     onRefreshArticles,
     onErrorReloadPress,
   } = useArticlesScreen();
 
-  if (error) {
-    return <ErrorScreen onPress={onErrorReloadPress} message={error} />;
+  if (articlesError) {
+    return <ErrorScreen onPress={onErrorReloadPress} message={articlesError} />;
   }
-
-  console.log('articles', articles);
 
   return (
     <View flexG>

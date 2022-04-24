@@ -7,7 +7,7 @@ type UseShowErrorParams = {
 };
 
 const useShowErrorHook = ({error, isEmpty}: UseShowErrorParams) => {
-  const showErrorScreen = useMemo(() => error && isEmpty, [error, isEmpty]);
+  const showErrorScreen = useMemo(() => !!error && isEmpty, [error, isEmpty]);
 
   useEffect(() => {
     if (showErrorScreen || !error) return;
@@ -16,7 +16,7 @@ const useShowErrorHook = ({error, isEmpty}: UseShowErrorParams) => {
   }, [error, showErrorScreen]);
 
   return {
-    showErrorScreen,
+    error: showErrorScreen ? error : undefined,
   };
 };
 

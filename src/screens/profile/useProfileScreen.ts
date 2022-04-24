@@ -51,7 +51,6 @@ const useProfileScreen = ({username}: UseProfileScreenParams) => {
     profile,
     isProfileError,
     isProfileLoading,
-    isArticlesError: articlesProps.error,
     isArticlesLoading: articlesProps.isLoading,
     onFollowPress,
     onProfileErrorReload,

@@ -20,17 +20,12 @@ const useArticleScreen = ({article}: UseArticleScreenParams) => {
   const {error, user, comments, isCommentsLoading} = useStore();
   const {push} = useNavigation<StackNavigationProp<RootStackParams>>();
 
-  const {showErrorScreen: showCommentsErrorScreen} = useShowErrorHook({
+  const {error: commentsError} = useShowErrorHook({
     error,
     isEmpty: !!comments.length,
   });
 
   const isGuest = useMemo(() => !user, [user]);
-
-  const commentsError = useMemo(
-    () => (showCommentsErrorScreen ? error : undefined),
-    [error, showCommentsErrorScreen]
-  );
 
   const onAuthorPress = useCallback(() => {
     push('Profile', {username: article.author.username});

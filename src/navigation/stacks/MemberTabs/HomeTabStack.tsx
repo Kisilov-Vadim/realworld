@@ -1,17 +1,17 @@
 import * as React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
 import {Colors} from 'react-native-ui-lib';
+import {createStackNavigator} from '@react-navigation/stack';
 
-import {ScreenIds, ScreensRegistry} from '../..';
 import {LeftAvatarButton} from '../../header';
+import {ScreenIds, ScreensRegistry} from '../..';
 import {MemberStackParams, MemberStackParamsKeys} from '../../types';
 
 const HomeTabStack = createStackNavigator<MemberStackParams>();
 
 const HomeTabStackScreen = () => {
-  const articlesScreen = ScreensRegistry[ScreenIds.articles];
   const articleScreen = ScreensRegistry[ScreenIds.article];
   const profileScreen = ScreensRegistry[ScreenIds.profile];
+  const articlesScreen = ScreensRegistry[ScreenIds.articles];
   const settingsModal = ScreensRegistry[ScreenIds.settingsModal];
 
   return (

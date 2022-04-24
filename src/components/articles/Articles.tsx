@@ -1,18 +1,19 @@
 import React from 'react';
-import {FlatList, ListRenderItemInfo} from 'react-native';
 import {Divider, Spinner} from 'native-base';
-
-import {View, Colors} from 'react-native-ui-lib';
+import {FlatList, ListRenderItemInfo} from 'react-native';
+import {View, Colors, Text} from 'react-native-ui-lib';
 
 import {Article} from '../../store/types';
 
 import ArticleCard from '../articleCard';
+import ErrorScreen from '../ErrorScreen';
 
 import SkeletonArticles from './SkeletonArticles';
 
 type ArticlesProps = {
   isLoading: boolean;
   articles: Article[];
+  error?: string;
   isUpdating?: boolean;
   isRefreshing?: boolean;
   onLoadArticles?: () => void;
@@ -36,8 +37,15 @@ const renderListFooterComponent = (isUpdating?: boolean) => {
   return null;
 };
 
+const renderEmptyList = () => (
+  <View paddingV-s10 paddingH-s5 center>
+    <Text text60BO>Articles are empty</Text>
+  </View>
+);
+
 const Articles = ({
   articles,
+  error,
   isLoading,
   isUpdating,
   isRefreshing,
@@ -48,19 +56,26 @@ const Articles = ({
     return <SkeletonArticles />;
   }
 
+  if (error) {
+    return <ErrorScreen message={error} onPress={onLoadArticles} />;
+  }
+
   return (
-    <FlatList
-      refreshing={isRefreshing}
-      keyExtractor={({slug}) => slug}
-      data={articles}
-      extraData={isRefreshing}
-      renderItem={renderArticle}
-      onRefresh={onRefreshArticles}
-      onEndReached={onLoadArticles}
-      onEndReachedThreshold={0.3}
-      ItemSeparatorComponent={ArticlesDivider}
-      ListFooterComponent={() => renderListFooterComponent(isUpdating)}
-    />
+    <View flex>
+      <FlatList
+        refreshing={isRefreshing}
+        keyExtractor={({slug}) => slug}
+        data={articles}
+        extraData={isRefreshing}
+        renderItem={renderArticle}
+        onRefresh={onRefreshArticles}
+        onEndReached={onLoadArticles}
+        onEndReachedThreshold={0.3}
+        ItemSeparatorComponent={ArticlesDivider}
+        ListFooterComponent={() => renderListFooterComponent(isUpdating)}
+        ListEmptyComponent={() => renderEmptyList()}
+      />
+    </View>
   );
 };
 

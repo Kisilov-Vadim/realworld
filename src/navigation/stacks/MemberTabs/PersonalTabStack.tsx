@@ -1,18 +1,27 @@
 import * as React from 'react';
+import {Colors} from 'react-native-ui-lib';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {MemberStackParams, MemberStackParamsKeys} from '../../types';
 import {LeftAvatarButton} from '../../header';
-
 import {ScreenIds, ScreensRegistry} from '../..';
+import {MemberStackParams, MemberStackParamsKeys} from '../../types';
 
 const PersonalTabStack = createStackNavigator<MemberStackParams>();
 
 const PersonalTabStackScreen = () => {
+  const articleScreen = ScreensRegistry[ScreenIds.article];
+  const profileScreen = ScreensRegistry[ScreenIds.profile];
+  const articlesScreen = ScreensRegistry[ScreenIds.articles];
   const userArticlesScreen = ScreensRegistry[ScreenIds.userArticles];
+  const settingsModal = ScreensRegistry[ScreenIds.settingsModal];
 
   return (
-    <PersonalTabStack.Navigator>
+    <PersonalTabStack.Navigator
+      screenOptions={{
+        headerTintColor: Colors.white,
+        headerStyle: {backgroundColor: Colors.blue30},
+      }}
+    >
       <PersonalTabStack.Screen
         name={userArticlesScreen.name as MemberStackParamsKeys}
         component={userArticlesScreen.component}
@@ -21,6 +30,41 @@ const PersonalTabStackScreen = () => {
           headerLeft: LeftAvatarButton,
         }}
       />
+
+      <PersonalTabStack.Screen
+        name={articlesScreen.name as MemberStackParamsKeys}
+        component={articlesScreen.component}
+        options={{
+          title: articlesScreen.title,
+          headerLeft: LeftAvatarButton,
+        }}
+      />
+
+      <PersonalTabStack.Screen
+        name={articleScreen.name as MemberStackParamsKeys}
+        component={articleScreen.component}
+        options={{
+          title: articleScreen.title,
+        }}
+      />
+
+      <PersonalTabStack.Screen
+        name={profileScreen.name as MemberStackParamsKeys}
+        component={profileScreen.component}
+        options={{
+          title: profileScreen.title,
+        }}
+      />
+
+      <PersonalTabStack.Group screenOptions={{presentation: 'modal'}}>
+        <PersonalTabStack.Screen
+          name={settingsModal.name as MemberStackParamsKeys}
+          component={settingsModal.component}
+          options={{
+            title: settingsModal.title,
+          }}
+        />
+      </PersonalTabStack.Group>
     </PersonalTabStack.Navigator>
   );
 };
