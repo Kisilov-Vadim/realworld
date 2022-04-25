@@ -1,5 +1,5 @@
 import {ResponseError} from 'superagent';
-import {action, computed, makeAutoObservable} from 'mobx';
+import {action, computed, makeAutoObservable, observable} from 'mobx';
 
 import {ArticlesService} from '../services';
 import ErrorMessages from '../errorMessages';
@@ -17,7 +17,7 @@ class Store {
   isLoading = true;
   isRefreshing = false;
   isLastPage = false;
-  articlesMap: Map<string, Article> = new Map();
+  articlesMap: Map<string, Article> = observable.map();
   page = 0;
   totalPagesCount = 0;
   predicate: Predicate = {};
@@ -67,18 +67,14 @@ class Store {
     this.error = undefined;
   }
 
-  setPredicate(predicate: Predicate, isForce?: boolean) {
-    if (
-      !isForce &&
-      JSON.stringify(predicate) === JSON.stringify(this.predicate)
-    )
-      return;
+  setPredicate(predicate: Predicate) {
+    if (JSON.stringify(predicate) === JSON.stringify(this.predicate)) return;
     this.clear();
     this.predicate = predicate;
   }
 
-  loadArticles(predicate: Predicate, isForce?: boolean) {
-    this.setPredicate(predicate, isForce);
+  loadArticles(predicate: Predicate) {
+    this.setPredicate(predicate);
     this.isLoading = true;
     this.error = undefined;
 
@@ -177,7 +173,7 @@ class Store {
   createArticle(article: NewArticle) {
     return ArticlesService.create(article)
       .then(({article}) => {
-        this.loadArticles(this.predicate, true);
+        this.articlesMap.set(article.slug, article);
         return article;
       })
       .catch(
@@ -191,7 +187,7 @@ class Store {
   updateArticle(article: UpdateArticle) {
     return ArticlesService.update(article)
       .then(({article}) => {
-        this.loadArticles(this.predicate, true);
+        this.articlesMap.set(article.slug, article);
         return article;
       })
       .catch(
@@ -203,14 +199,17 @@ class Store {
   }
 
   deleteArticle(slug: string) {
-    this.articlesMap.delete(slug);
-
-    return ArticlesService.delete(slug).catch(
-      action((err) => {
-        this.loadArticles(this.predicate, true);
-        throw err;
-      })
-    );
+    return ArticlesService.delete(slug)
+      .then(
+        action(() => {
+          this.articlesMap.delete(slug);
+        })
+      )
+      .catch(
+        action((err) => {
+          console.error(err);
+        })
+      );
   }
 }
 

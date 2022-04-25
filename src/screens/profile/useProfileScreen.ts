@@ -37,14 +37,12 @@ const useProfileScreen = ({username}: UseProfileScreenParams) => {
   }, [username]);
 
   useEffect(() => {
-    if (!profile?.username) return;
-
     const unsubscribe = navigation.addListener('focus', () => {
-      ArticlesStore.loadArticles({author: profile.username});
+      ArticlesStore.loadArticles({author: username});
     });
 
     return unsubscribe;
-  }, [navigation, profile?.username]);
+  }, [navigation, username]);
 
   return {
     ...articlesProps,

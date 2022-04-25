@@ -28,12 +28,6 @@ const useCreateArticle = ({route, navigation}: CreateArticleProps) => {
     tagList: article?.tagList || [],
   });
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerTitle: article ? 'Edit Article' : 'Create Article',
-    });
-  }, [article, navigation]);
-
   const isCreateButtonDisabled = useMemo(
     () => isLoading || Object.values(data).some((item) => !item),
     [data, isLoading]
@@ -87,18 +81,27 @@ const useCreateArticle = ({route, navigation}: CreateArticleProps) => {
     try {
       setIsLoading(true);
       if (article) {
-        await ArticlesStore.updateArticle({...data, slug: article.slug});
+        const updatedArticle = await ArticlesStore.updateArticle({
+          ...data,
+          slug: article.slug,
+        });
+        navigation.navigate('Article', {article: updatedArticle});
       } else {
         await ArticlesStore.createArticle(data);
+        navigation.goBack();
       }
-
-      navigation.navigate('Articles');
     } catch (err) {
       showErrorToast({title: ErrorMessages.createArticle});
     } finally {
       setIsLoading(false);
     }
   }, [article, data, navigation]);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: article ? 'Edit Article' : 'Create Article',
+    });
+  }, [article, navigation]);
 
   return {
     data,

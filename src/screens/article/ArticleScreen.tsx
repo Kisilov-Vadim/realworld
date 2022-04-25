@@ -54,11 +54,11 @@ const ArticleScreen = ({route}: ArticleScreenProps) => {
                 <Button
                   mr={3}
                   size="sm"
+                  variant="solid"
                   colorScheme="blue"
-                  variant={article.favorited ? undefined : 'outline'}
                   onPress={onEditPress}
                   leftIcon={
-                    <Ionicons name="create-outline" size={20} color="blue" />
+                    <Ionicons name="create-outline" size={20} color="white" />
                   }
                 >
                   Edit
@@ -68,13 +68,13 @@ const ArticleScreen = ({route}: ArticleScreenProps) => {
                   mr={1}
                   size="sm"
                   colorScheme="red"
-                  variant={article.favorited ? undefined : 'outline'}
+                  variant="solid"
                   onPress={onDeletePress}
                   leftIcon={
                     isDeleteLoading ? (
-                      <Spinner color="red" />
+                      <Spinner color="white" />
                     ) : (
-                      <Ionicons name="trash" size={20} color="red" />
+                      <Ionicons name="trash" size={20} color="white" />
                     )
                   }
                 >
