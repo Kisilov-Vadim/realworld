@@ -19,6 +19,7 @@ const HomeTabStackScreen = () => {
       screenOptions={{
         headerTintColor: Colors.white,
         headerStyle: {backgroundColor: Colors.blue30},
+        cardStyle: {backgroundColor: Colors.white},
       }}
     >
       <HomeTabStack.Screen
