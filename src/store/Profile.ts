@@ -15,11 +15,6 @@ class ProfileStore {
   }
 
   loadProfile(username: string) {
-    console.log(
-      'this.profile?.username === username',
-      this.profile?.username,
-      username
-    );
     if (this.profile?.username === username) return;
 
     this.isLoading = true;
