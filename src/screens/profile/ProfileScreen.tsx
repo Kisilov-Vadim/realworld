@@ -16,6 +16,7 @@ const ProfileScreen = ({route, navigation}: ProfileScreenProps) => {
   const {username} = route.params;
 
   const {
+    user,
     profile,
     articles,
     isUpdating,
@@ -31,6 +32,8 @@ const ProfileScreen = ({route, navigation}: ProfileScreenProps) => {
   } = useProfileScreen({username});
 
   useEffect(() => {
+    if (username === user?.username) return;
+
     navigation.setOptions({
       headerRight: profile
         ? () => (
@@ -41,7 +44,7 @@ const ProfileScreen = ({route, navigation}: ProfileScreenProps) => {
           )
         : undefined,
     });
-  }, [navigation, onFollowPress, profile]);
+  }, [navigation, onFollowPress, profile, user?.username, username]);
 
   if (isProfileLoading) {
     return <SkeletonProfileScreen />;

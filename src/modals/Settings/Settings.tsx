@@ -5,8 +5,6 @@ import {observer} from 'mobx-react-lite';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Box, Button, Input, Spinner, TextArea} from 'native-base';
 
-import {UserStore} from '../../store';
-
 import useSettings from './useSettings';
 
 const Settings = () => {
@@ -19,6 +17,7 @@ const Settings = () => {
     onEmailChange,
     onPasswordChange,
     onUserUpdate,
+    onLogoutPress,
   } = useSettings();
 
   return (
@@ -81,7 +80,7 @@ const Settings = () => {
         size="lg"
         borderRadius={0}
         colorScheme="danger"
-        onPress={() => UserStore.forgetUser()}
+        onPress={onLogoutPress}
       >
         Logout
       </Button>

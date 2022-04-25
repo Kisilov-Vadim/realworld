@@ -13,7 +13,7 @@ type UseProfileScreenParams = {
 const useProfileScreen = ({username}: UseProfileScreenParams) => {
   const navigation = useNavigation();
 
-  const {profile, isProfileError, isProfileLoading} = useStore();
+  const {profile, user, isProfileError, isProfileLoading} = useStore();
 
   const articlesProps = useArticlesHook({
     isProfile: true,
@@ -46,6 +46,7 @@ const useProfileScreen = ({username}: UseProfileScreenParams) => {
 
   return {
     ...articlesProps,
+    user,
     profile,
     isProfileError,
     isProfileLoading,

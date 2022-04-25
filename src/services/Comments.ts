@@ -13,8 +13,11 @@ export type CommentCreateResponse = {
 export default {
   get: (slug: string): Promise<CommentGetResponse> =>
     requests.get(`/articles/${slug}/comments`),
-  create: (slug: string, comment: string): Promise<CommentCreateResponse> =>
+  create: (
+    slug: string,
+    comment: {body: string}
+  ): Promise<CommentCreateResponse> =>
     requests.post(`/articles/${slug}/comments`, {comment}),
-  delete: (slug: string, commentId: string): Promise<void> =>
+  delete: (slug: string, commentId: number): Promise<void> =>
     requests.del(`/articles/${slug}/comments/${commentId}`),
 };

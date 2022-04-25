@@ -1,4 +1,4 @@
-import {action, makeAutoObservable} from 'mobx';
+import {action, computed, makeAutoObservable, observable} from 'mobx';
 
 import ErrorMessages from '../errorMessages';
 import {CommentsService} from '../services';
@@ -8,7 +8,7 @@ import {Comment} from './types';
 
 class Store {
   isLoading = true;
-  comments: Comment[] = [];
+  commentsMap: Map<string, Comment> = observable.map();
   slug?: string = undefined;
   error?: string = undefined;
 
@@ -16,22 +16,32 @@ class Store {
     makeAutoObservable(this);
   }
 
-  clear(slug: string) {
+  @computed get comments() {
+    return [...this.commentsMap.values()];
+  }
+
+  $clear(slug: string) {
     if (slug === this.slug) return;
     this.slug = slug;
 
+    this.commentsMap.clear();
     this.isLoading = true;
-    this.comments = [];
     this.error = undefined;
   }
 
+  $updateCommentsMap(comments: Comment[]) {
+    comments.forEach((comment) =>
+      this.commentsMap.set(comment.id.toString(), comment)
+    );
+  }
+
   loadComments(slug: string) {
-    this.clear(slug);
+    this.$clear(slug);
 
     CommentsService.get(slug)
       .then(
         action(({comments}: CommentGetResponse) => {
-          this.comments = comments;
+          this.$updateCommentsMap(comments);
         })
       )
       .catch(
@@ -45,6 +55,41 @@ class Store {
           this.isLoading = false;
         })
       );
+  }
+
+  createComment(comment: string) {
+    if (!this.slug) return;
+
+    return CommentsService.create(this.slug, {body: comment})
+      .then(
+        action(({comment}) => {
+          this.commentsMap.set(comment.id.toString(), comment);
+        })
+      )
+      .catch(
+        action((err) => {
+          console.error(err);
+          throw err;
+        })
+      );
+  }
+
+  deleteComment(id: number) {
+    if (!this.slug) return;
+
+    const idString = id.toString();
+    const comment = this.commentsMap.get(idString);
+    this.commentsMap.delete(idString);
+
+    if (!comment) return;
+
+    return CommentsService.delete(this.slug, id).catch(
+      action((err) => {
+        this.commentsMap.set(id.toString(), comment);
+        console.error(err);
+        throw err;
+      })
+    );
   }
 }
 

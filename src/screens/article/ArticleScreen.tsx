@@ -1,17 +1,21 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import {StackScreenProps} from '@react-navigation/stack';
 import {ScrollView} from 'react-native';
-import {Button, Divider, Icon, Spinner} from 'native-base';
-import {View, Text} from 'react-native-ui-lib';
 import {observer} from 'mobx-react-lite';
-
+import {View, Text} from 'react-native-ui-lib';
 import {AntDesign, Ionicons} from '@expo/vector-icons';
+import {StackScreenProps} from '@react-navigation/stack';
+import {Button, Divider, Icon, Spinner} from 'native-base';
+
 import {RootStackParams} from '../../navigation/types';
 import {ArticleAuthor, ChipsList} from '../../components';
 
+import {
+  ArticleScreenComments,
+  GuestCommentsHeader,
+  MemberCommentsHeader,
+} from './components';
 import useArticleScreen from './useArticleScreen';
-import ArticleScreenComments from './ArticleScreenComments';
 
 type ArticleScreenProps = StackScreenProps<RootStackParams, 'Article'>;
 
@@ -117,18 +121,12 @@ const ArticleScreen = ({route}: ArticleScreenProps) => {
 
       <Divider />
 
-      {isGuest ? (
-        <View row center paddingH-s5 paddingT-s2>
-          <Button onPress={openAuthLoginModal} variant="link">
-            <Text blue30>Sign In</Text>
-          </Button>
-          <Text>or</Text>
-          <Button onPress={openAuthRegisterModal} variant="link">
-            <Text blue30>Sign Up</Text>
-          </Button>
-          <Text>to add comments on this article.</Text>
-        </View>
-      ) : null}
+      {isGuest && (
+        <GuestCommentsHeader
+          openAuthLoginModal={openAuthLoginModal}
+          openAuthRegisterModal={openAuthRegisterModal}
+        />
+      )}
 
       <ArticleScreenComments
         comments={mappedComments}
@@ -136,6 +134,8 @@ const ArticleScreen = ({route}: ArticleScreenProps) => {
         isLoading={isCommentsLoading}
         onReloadCommentsPress={onCommentsErrorPress}
       />
+
+      <View paddingH-s5>{!isGuest && <MemberCommentsHeader />}</View>
     </ScrollView>
   );
 };

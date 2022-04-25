@@ -1,6 +1,6 @@
 import {useState, useCallback, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {UserStore} from '../../store';
+import {AuthStore, UserStore} from '../../store';
 
 import useStore from './useStore';
 import {mapToRequestBody} from './utils';
@@ -50,6 +50,10 @@ const useSettings = () => {
     }
   }, [navigation, userFields]);
 
+  const onLogoutPress = useCallback(async () => {
+    AuthStore.logout();
+  }, []);
+
   useEffect(() => {
     if (error) {
       showErrorToast({title: error});
@@ -65,6 +69,7 @@ const useSettings = () => {
     onEmailChange,
     onPasswordChange,
     onUserUpdate,
+    onLogoutPress,
   };
 };
 

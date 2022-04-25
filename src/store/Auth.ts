@@ -1,6 +1,6 @@
 import {action, makeAutoObservable} from 'mobx';
 
-import {UserStore} from '.';
+import {ArticlesStore, UserStore} from '.';
 import {AuthService} from '../services';
 
 import {ResponseErrors} from '../services/types';
@@ -87,6 +87,7 @@ class Store {
 
   logout() {
     UserStore.forgetUser();
+    ArticlesStore.clear();
   }
 }
 

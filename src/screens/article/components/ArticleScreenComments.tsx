@@ -1,8 +1,8 @@
 import React from 'react';
 import {View} from 'react-native-ui-lib';
 
-import {ErrorScreen, SkeletonComment, Comment} from '../../components';
-import {CommentProps} from '../../components/comment/Comment';
+import {ErrorScreen, SkeletonComment, Comment} from '../../../components';
+import {CommentProps} from '../../../components/comment/Comment';
 
 type ArticleScreenCommentsProps = {
   comments: (CommentProps & {id: number})[];
@@ -38,6 +38,7 @@ const ArticleScreenComments = ({
               authorImage={comment.authorImage}
               date={comment.date}
               onAuthorPress={comment.onAuthorPress}
+              onRemoveComment={comment.onRemoveComment}
             />
           ))}
         </View>

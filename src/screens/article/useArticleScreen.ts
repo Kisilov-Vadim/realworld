@@ -52,6 +52,14 @@ const useArticleScreen = ({article}: UseArticleScreenParams) => {
     push('AuthModal', {isRegister: true});
   }, [push]);
 
+  const onRemoveComment = useCallback(async (id: number) => {
+    try {
+      CommentsStore.deleteComment(id);
+    } catch (err) {
+      showErrorToast({title: ErrorMessages.deleteComment});
+    }
+  }, []);
+
   const mappedComments = useMemo(
     () =>
       comments.map(({id, body, createdAt, author}) => ({
@@ -61,8 +69,12 @@ const useArticleScreen = ({article}: UseArticleScreenParams) => {
         authorName: author.username,
         authorImage: author.image,
         onAuthorPress: () => onCommentAuthorPress(author),
+        onRemoveComment:
+          user?.username === author.username
+            ? () => onRemoveComment(id)
+            : undefined,
       })),
-    [comments, onCommentAuthorPress]
+    [comments, onCommentAuthorPress, onRemoveComment, user?.username]
   );
 
   const onCommentsErrorPress = useCallback(() => {

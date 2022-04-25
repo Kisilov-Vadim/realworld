@@ -1,6 +1,15 @@
+import {Ionicons} from '@expo/vector-icons';
+import {Button} from 'native-base';
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {Card, View, Text, Avatar, TouchableOpacity} from 'react-native-ui-lib';
+import {
+  Card,
+  View,
+  Text,
+  Avatar,
+  TouchableOpacity,
+  Colors,
+} from 'react-native-ui-lib';
 
 import {formatDate} from '../../utils/date';
 
@@ -13,6 +22,7 @@ export type CommentProps = {
   authorImage: string;
   date?: string;
   onAuthorPress?: () => void;
+  onRemoveComment?: () => void;
 };
 
 const Comment = ({
@@ -21,6 +31,7 @@ const Comment = ({
   authorName,
   authorImage,
   onAuthorPress,
+  onRemoveComment,
 }: CommentProps) => (
   <Card marginB-s4>
     <View padding-s5>
@@ -52,9 +63,16 @@ const Comment = ({
           {authorName}
         </Text>
       </TouchableOpacity>
-      <Text marginL-s2 grey30>
-        {formatDate(date)}
-      </Text>
+      <View row center>
+        <Text marginL-s2 grey30 marginR-s4>
+          {formatDate(date)}
+        </Text>
+        {onRemoveComment && (
+          <Button onPress={onRemoveComment} variant="ghost">
+            <Ionicons name="trash" size={20} color={Colors.blue30} />
+          </Button>
+        )}
+      </View>
     </View>
   </Card>
 );
