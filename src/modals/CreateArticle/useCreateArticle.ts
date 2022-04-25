@@ -1,6 +1,6 @@
 import {useState, useCallback, useMemo, useEffect} from 'react';
 import {PickerValue} from 'react-native-ui-lib';
-import {StackScreenProps} from '@react-navigation/stack';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import ErrorMessages from '../../errorMessages';
 import {ArticlesStore} from '../../store';
@@ -10,7 +10,7 @@ import {MemberStackParams} from '../../navigation/types';
 
 import useStore from './useStore';
 
-export type CreateArticleProps = StackScreenProps<
+export type CreateArticleProps = NativeStackScreenProps<
   MemberStackParams,
   'CreateArticleModal'
 >;
@@ -85,7 +85,11 @@ const useCreateArticle = ({route, navigation}: CreateArticleProps) => {
           ...data,
           slug: article.slug,
         });
-        navigation.navigate('Article', {article: updatedArticle});
+        navigation.navigate({
+          name: 'Article',
+          params: {article: updatedArticle},
+          merge: true,
+        });
       } else {
         await ArticlesStore.createArticle(data);
         navigation.goBack();

@@ -23,8 +23,8 @@ const Settings = () => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View flexG paddingH-s5 paddingT-s10>
-        <ScrollView>
+      <ScrollView>
+        <View flexG paddingH-s5>
           <Box alignItems="center">
             <Input
               mb={4}
@@ -75,8 +75,8 @@ const Settings = () => {
               {isUpdating ? <Spinner color="white" /> : 'Update Settings'}
             </Button>
           </Box>
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
       <Button
         size="lg"
         borderRadius={0}
