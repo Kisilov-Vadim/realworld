@@ -33,3 +33,12 @@ export type Comment = {
   body: string;
   author: Author;
 };
+
+export type NewArticle = {
+  title: string;
+  description: string;
+  body: string;
+  tagList: string[];
+};
+
+export type UpdateArticle = NewArticle & {slug: string};

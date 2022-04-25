@@ -1,12 +1,16 @@
-import {Article} from '../store/types';
+import {Article, NewArticle, UpdateArticle} from '../store/types';
 
-import {limit} from './helpers';
+import {limit, omitSlug} from './helpers';
 import requests from './requests';
 import {ArticlesRequestParams, LimitParams} from './types';
 
 export type ResArticle = {
   articles: Article[];
   articlesCount: number;
+};
+
+export type ArticleCrud = {
+  article: Article;
 };
 
 export default {
@@ -25,4 +29,10 @@ export default {
     requests.get(`/articles?tag=${tag}&${limit(rest)}`),
   byAuthor: ({author, ...rest}: ArticlesRequestParams): Promise<ResArticle> =>
     requests.get(`/articles?author=${author}&${limit(rest)}`),
+  create: (article: NewArticle): Promise<ArticleCrud> =>
+    requests.post('/articles', {article}),
+  update: (article: UpdateArticle): Promise<ArticleCrud> =>
+    requests.put(`/articles/${article.slug}`, {article: omitSlug(article)}),
+  delete: (slug: string): Promise<ArticleCrud> =>
+    requests.del(`/articles/${slug}`),
 };

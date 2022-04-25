@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {LeftAvatarButton} from '../../header';
 import {ScreenIds, ScreensRegistry} from '../..';
 import {MemberStackParams, MemberStackParamsKeys} from '../../types';
+import RightCreateArticleButton from '../../header/RightCreateArticleButton';
 
 const HomeTabStack = createStackNavigator<MemberStackParams>();
 
@@ -26,6 +27,7 @@ const HomeTabStackScreen = () => {
         options={{
           title: articlesScreen.title,
           headerLeft: LeftAvatarButton,
+          headerRight: RightCreateArticleButton,
         }}
       />
 

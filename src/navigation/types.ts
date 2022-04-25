@@ -15,6 +15,7 @@ export type MemberStackParams = {
   Profile: {username: string};
   UserArticles: undefined;
   SettingsModal: undefined;
+  CreateArticleModal: {article: Article} | undefined;
 };
 
 export type RootStackParams = GuestStackParams & MemberStackParams;

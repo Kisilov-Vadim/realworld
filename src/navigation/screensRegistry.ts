@@ -31,4 +31,9 @@ export default {
     title: 'Settings',
     component: require('../modals').SettingsModal,
   },
+  [screenIds.createArticleModal]: {
+    name: screenIds.createArticleModal,
+    title: '',
+    component: require('../modals').CreateArticleModal,
+  },
 };

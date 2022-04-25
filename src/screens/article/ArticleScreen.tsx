@@ -2,11 +2,11 @@
 import React from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
 import {ScrollView} from 'react-native';
-import {Button, Divider, Icon} from 'native-base';
+import {Button, Divider, Icon, Spinner} from 'native-base';
 import {View, Text} from 'react-native-ui-lib';
 import {observer} from 'mobx-react-lite';
 
-import {AntDesign} from '@expo/vector-icons';
+import {AntDesign, Ionicons} from '@expo/vector-icons';
 import {RootStackParams} from '../../navigation/types';
 import {ArticleAuthor, ChipsList} from '../../components';
 
@@ -17,16 +17,21 @@ type ArticleScreenProps = StackScreenProps<RootStackParams, 'Article'>;
 
 const ArticleScreen = ({route}: ArticleScreenProps) => {
   const {article} = route.params;
+
   const {
     isGuest,
+    isAuthor,
     commentsError,
     mappedComments,
     isCommentsLoading,
+    isDeleteLoading,
     onLikePress,
     onAuthorPress,
     openAuthLoginModal,
-    onCommentsErrorPress,
     openAuthRegisterModal,
+    onCommentsErrorPress,
+    onEditPress,
+    onDeletePress,
   } = useArticleScreen({article});
 
   return (
@@ -42,7 +47,43 @@ const ArticleScreen = ({route}: ArticleScreenProps) => {
           date={article.updatedAt}
           onPress={onAuthorPress}
         />
-        <View row right>
+        <View row centerV spread marginT-s5>
+          <View>
+            {isAuthor ? (
+              <View row center>
+                <Button
+                  mr={3}
+                  size="sm"
+                  colorScheme="blue"
+                  variant={article.favorited ? undefined : 'outline'}
+                  onPress={onEditPress}
+                  leftIcon={
+                    <Ionicons name="create-outline" size={20} color="blue" />
+                  }
+                >
+                  Edit
+                </Button>
+
+                <Button
+                  mr={1}
+                  size="sm"
+                  colorScheme="red"
+                  variant={article.favorited ? undefined : 'outline'}
+                  onPress={onDeletePress}
+                  leftIcon={
+                    isDeleteLoading ? (
+                      <Spinner color="red" />
+                    ) : (
+                      <Ionicons name="trash" size={20} color="red" />
+                    )
+                  }
+                >
+                  Delete
+                </Button>
+              </View>
+            ) : null}
+          </View>
+
           <Button
             mr={1}
             size="sm"

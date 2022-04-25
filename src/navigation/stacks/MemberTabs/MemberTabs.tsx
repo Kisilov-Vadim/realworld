@@ -2,8 +2,6 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Ionicons, MaterialIcons} from '@expo/vector-icons';
 
-import {LeftAvatarButton} from '../../header';
-
 import HomeTabStack from './HomeTabStack';
 import PersonalTabStack from './PersonalTabStack';
 
@@ -32,7 +30,6 @@ const MemberTabs = () => (
   <Tab.Navigator
     screenOptions={{
       tabBarShowLabel: false,
-      headerLeft: LeftAvatarButton,
     }}
   >
     <Tab.Screen

@@ -4,7 +4,7 @@ import {action, computed, makeAutoObservable} from 'mobx';
 import {ArticlesService} from '../services';
 import ErrorMessages from '../errorMessages';
 
-import {Article} from './types';
+import {Article, NewArticle, UpdateArticle} from './types';
 import {LIMIT} from './constants';
 
 export type Predicate = {
@@ -67,14 +67,18 @@ class Store {
     this.error = undefined;
   }
 
-  setPredicate(predicate: Predicate) {
-    if (JSON.stringify(predicate) === JSON.stringify(this.predicate)) return;
+  setPredicate(predicate: Predicate, isForce?: boolean) {
+    if (
+      !isForce &&
+      JSON.stringify(predicate) === JSON.stringify(this.predicate)
+    )
+      return;
     this.clear();
     this.predicate = predicate;
   }
 
-  loadArticles(predicate: Predicate) {
-    this.setPredicate(predicate);
+  loadArticles(predicate: Predicate, isForce?: boolean) {
+    this.setPredicate(predicate, isForce);
     this.isLoading = true;
     this.error = undefined;
 
@@ -168,6 +172,45 @@ class Store {
     }
 
     return Promise.resolve();
+  }
+
+  createArticle(article: NewArticle) {
+    return ArticlesService.create(article)
+      .then(({article}) => {
+        this.loadArticles(this.predicate, true);
+        return article;
+      })
+      .catch(
+        action((err) => {
+          console.error(err);
+          throw err;
+        })
+      );
+  }
+
+  updateArticle(article: UpdateArticle) {
+    return ArticlesService.update(article)
+      .then(({article}) => {
+        this.loadArticles(this.predicate, true);
+        return article;
+      })
+      .catch(
+        action((err) => {
+          console.error(err);
+          throw err;
+        })
+      );
+  }
+
+  deleteArticle(slug: string) {
+    this.articlesMap.delete(slug);
+
+    return ArticlesService.delete(slug).catch(
+      action((err) => {
+        this.loadArticles(this.predicate, true);
+        throw err;
+      })
+    );
   }
 }
 

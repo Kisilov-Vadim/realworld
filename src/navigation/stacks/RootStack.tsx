@@ -13,11 +13,12 @@ const Stack = createStackNavigator();
 
 const RootStackScreen = ({user}: {user?: User}) => {
   const settingsModal = ScreensRegistry[ScreenIds.settingsModal];
+  const createArticleModal = ScreensRegistry[ScreenIds.createArticleModal];
 
   return (
     <Stack.Navigator
       screenOptions={({route}) => ({
-        headerShown: route.name === ScreenIds.settingsModal,
+        headerShown: route.name.toLowerCase().includes('modal'),
       })}
     >
       {user ? (
@@ -25,6 +26,14 @@ const RootStackScreen = ({user}: {user?: User}) => {
           <Stack.Screen name="MemberStackScreen" component={MemberTabs} />
 
           <Stack.Group screenOptions={{presentation: 'modal'}}>
+            <Stack.Screen
+              name={createArticleModal.name as MemberStackParamsKeys}
+              component={createArticleModal.component}
+              options={{
+                title: createArticleModal.title,
+              }}
+            />
+
             <Stack.Screen
               name={settingsModal.name as MemberStackParamsKeys}
               component={settingsModal.component}

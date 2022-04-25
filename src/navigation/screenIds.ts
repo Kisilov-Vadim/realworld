@@ -5,4 +5,5 @@ export default {
   profile: 'Profile',
   authModal: 'AuthModal',
   settingsModal: 'SettingsModal',
+  createArticleModal: 'CreateArticleModal',
 };

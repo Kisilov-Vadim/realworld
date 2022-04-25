@@ -1,4 +1,4 @@
-import {useEffect, useCallback, useMemo} from 'react';
+import {useEffect, useCallback, useMemo, useState} from 'react';
 
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -18,7 +18,9 @@ type UseArticleScreenParams = {
 
 const useArticleScreen = ({article}: UseArticleScreenParams) => {
   const {error, user, comments, isCommentsLoading} = useStore();
-  const {push} = useNavigation<StackNavigationProp<RootStackParams>>();
+  const {push, goBack} = useNavigation<StackNavigationProp<RootStackParams>>();
+
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
   const {error: commentsError} = useShowErrorHook({
     error,
@@ -26,6 +28,10 @@ const useArticleScreen = ({article}: UseArticleScreenParams) => {
   });
 
   const isGuest = useMemo(() => !user, [user]);
+  const isAuthor = useMemo(
+    () => user?.username === article.author.username,
+    [article.author.username, user?.username]
+  );
 
   const onAuthorPress = useCallback(() => {
     push('Profile', {username: article.author.username});
@@ -79,20 +85,41 @@ const useArticleScreen = ({article}: UseArticleScreenParams) => {
     }
   }, [article.favorited, article.slug, push, user]);
 
+  const onEditPress = useCallback(() => {
+    push('CreateArticleModal', {article});
+  }, [article, push]);
+
+  const onDeletePress = useCallback(async () => {
+    setIsDeleteLoading(true);
+
+    try {
+      await ArticlesStore.deleteArticle(article.slug);
+      goBack();
+    } catch (err) {
+      showErrorToast({title: ErrorMessages.deleteArticle});
+    } finally {
+      setIsDeleteLoading(false);
+    }
+  }, [article.slug, goBack]);
+
   useEffect(() => {
     CommentsStore.loadComments(article.slug);
   }, [article.slug]);
 
   return {
     isGuest,
+    isAuthor,
     commentsError,
     mappedComments,
     isCommentsLoading,
+    isDeleteLoading,
     onLikePress,
     onAuthorPress,
     openAuthLoginModal,
     openAuthRegisterModal,
     onCommentsErrorPress,
+    onEditPress,
+    onDeletePress,
   };
 };
 
