@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "realworld",
-    "slug": "realworld",
+    "name": "realworld-articles",
+    "slug": "realworld-articles",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

@@ -35,7 +35,8 @@
     "react-native-svg": "12.1.1",
     "react-native-ui-lib": "6.13.1",
     "superagent": "^7.1.2",
-    "superagent-promise": "^1.1.0"
+    "superagent-promise": "^1.1.0",
+    "expo-updates": "~0.11.6"
   },
   "devDependencies": {
     "@babel/core": "7.12.9",
