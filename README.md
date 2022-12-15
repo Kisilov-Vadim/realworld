@@ -4,10 +4,23 @@
 - `npm install` to install all req'd dependencies
 - `npm start` to start the local server (this project uses expo)
 
-## Open on your real device
+## App Example In Expo
 
-- install `Expo Go` application on your device
-- open this link from your device `exp://exp.host/@seinz/realworld-articles`
-- or scan this qr code
+Install Expo app from mobile stores and scan QR code according your device:
 
-# ![React + Mobx Example App](/assets/readme/open-qr-code.png)
+iOS Qr Code             |  Android Qr Code
+:-------------------------:|:-------------------------:
+![](./assets/ios-qr.png)  |  ![](./assets/android-qr.png)
+
+Or, open this link on your device:
+
+1. iOs:
+  ```sh
+  exp://u.expo.dev/update/5e867376-a375-41a6-98d2-052788da67da
+  ```
+
+2. Android:
+  ```sh
+  exp://u.expo.dev/update/92eaaaf9-dd3e-4006-9ed6-6743cf939c24
+  ```
+
