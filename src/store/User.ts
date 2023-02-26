@@ -1,6 +1,6 @@
-import {action, makeAutoObservable} from 'mobx';
-import {AsyncStorage} from 'react-native';
 import {Cache} from 'react-native-cache';
+import {action, makeAutoObservable} from 'mobx';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {AuthService} from '../services';
 import {ResponseUser} from '../services/Auth';
