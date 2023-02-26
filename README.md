@@ -16,11 +16,11 @@ Or, open this link on your device:
 
 1. iOs:
   ```sh
-  exp://u.expo.dev/update/5e867376-a375-41a6-98d2-052788da67da
+  exp://u.expo.dev/update/e900bcde-0eba-4e2f-b897-6a564cd89c7f
   ```
 
 2. Android:
   ```sh
-  exp://u.expo.dev/update/92eaaaf9-dd3e-4006-9ed6-6743cf939c24
+  exp://u.expo.dev/update/2116485b-bb28-4706-9eca-5ff6c7da86d2
   ```
 
