@@ -24,3 +24,8 @@ Or, open this link on your device:
   exp://u.expo.dev/update/2116485b-bb28-4706-9eca-5ff6c7da86d2
   ```
 
+## How to publish last changes to Expo
+
+```sh
+  eas update
+```
