@@ -16,16 +16,16 @@ Or, open this link on your device:
 
 1. iOs:
   ```sh
-  exp://u.expo.dev/update/e900bcde-0eba-4e2f-b897-6a564cd89c7f
+  exp://u.expo.dev/update/8d26ccfd-d1a8-40a4-b8e2-dd6c59c98d8b
   ```
 
 2. Android:
   ```sh
-  exp://u.expo.dev/update/2116485b-bb28-4706-9eca-5ff6c7da86d2
+  exp://u.expo.dev/update/8635cec5-b32b-4eb2-a296-4401f3dfe35a
   ```
 
 ## How to publish last changes to Expo
 
 ```sh
-  eas update
+eas update
 ```
