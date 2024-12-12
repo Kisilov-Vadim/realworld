@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL") /// Format in env file: postgresql://USER:PASSWORD@HOST:PORT/DATABASE
+}
+
+model User {
+  email      String    @unique /// User email for registering and login use.
+  username   String    @id /// User internal id.
+  password   String /// User password stored in the database.
+  bio        String? /// User biographical information.
+  image      String? /// Link to the user avatar.
+  follows    User[]    @relation("UserFollows") /// List of other users that this one follows.
+  followedBy User[]    @relation("UserFollows") /// List of other users that follows this one.
+  authored   Article[] @relation("Author") /// List of articles this user has written.
+  favorites  Article[] @relation("Favorites") /// List of articles this user has favorited.
+  comment    Comment[] @relation("Author") /// List of comments this user has written.
+}
+
+model Article {
+  title          String    @unique
+  slug           String    @id /// Slug is an uri safe string derived from the title.
+  description    String /// Description for SEO of this article.
+  body           String /// The main content of the article.
+  tagList        Tag[] /// List of tags associated with this article.
+  author         User      @relation("Author", fields: [authorUsername], references: [username], onDelete: Cascade) /// User that is the author of this article.
+  authorUsername String /// Username of the author of this article.
+  favoritedBy    User[]    @relation("Favorites") /// List of users that have favorited this article.
+  comments       Comment[] @relation("Comments") /// List of comments of this article.
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @default(now())
+}
+
+model Comment {
+  id             Int      @id @default(autoincrement())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @default(now())
+  body           String /// The main content of the comment.
+  author         User     @relation("Author", fields: [authorUsername], references: [username], onDelete: Cascade) /// User that is the author of this comment.
+  authorUsername String /// Username of the author of this comment.
+  Article        Article  @relation("Comments", fields: [articleSlug], references: [slug], onDelete: Cascade) /// Article that this comment belongs to.
+  articleSlug    String /// Article slug that this comment belongs to.
+}
+
+model Tag {
+  tagName String    @id
+  article Article[] /// List of articles that have this tag.
+}
