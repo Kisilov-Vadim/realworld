@@ -21,17 +21,7 @@ Navigate to the server directory and install the required dependencies.
 npm install
 ```
 
-### 2.2 Create `.env.development` File
-
-Next, create a `.env.development` file in the server folder and add the following content to configure the environment for development:
-
-```env
-DATABASE_URL=file:./dev.db
-JWT_SECRET=theSecretForCreatingTheJWT
-NODE_ENV=development
-```
-
-### 2.3 Run Migrations
+### 2.2 Run Migrations
 
 Now that the server is set up, you need to run the database migrations. This will set up your database schema according to the defined migrations.
 
@@ -42,7 +32,7 @@ npm run migrate:develop
 **Explanation:**
 This command runs the migration script for the development environment. It will create or update the necessary tables and schema in the database (in this case, a local SQLite file) to match the structure defined in your migration files. Running migrations ensures your database is up-to-date with the latest application changes.
 
-### 2.4 Start the Development Server
+### 2.3 Start the Development Server
 
 Finally, start the server in development mode by running:
 
