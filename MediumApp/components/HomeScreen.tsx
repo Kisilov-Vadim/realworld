@@ -18,11 +18,10 @@ import { Text } from "@/components/ui/text"
 import { Button, ButtonText } from "@/components/ui/button"
 import SideDrawer from "@/components/SideDrawer"
 
-export default function HomeScreen() {
+export default function HomeScreen( { navigation }) {
+  const [posts, setPosts] = useState([]);
   const [showDrawer, setShowDrawer] = useState(false)
   const [loggedIn, setLoggedIn] = useState(false)
-  const [token, setToken] = useState('')
-  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     async function fetchPosts() {
@@ -74,7 +73,7 @@ export default function HomeScreen() {
         contentContainerStyle={styles.listContent}
       />
     </ParallaxScrollView>
-    <SideDrawer showDrawer={showDrawer} setShowDrawer={setShowDrawer} setToken={setToken} />
+    <SideDrawer showDrawer={showDrawer} setShowDrawer={setShowDrawer} />
     </>
   );
 }

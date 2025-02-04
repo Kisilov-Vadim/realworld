@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Heading } from "@/components/ui/heading"
 import { Text } from "@/components/ui/text"
 import { Button, ButtonText } from "@/components/ui/button"
+import { useRouter } from 'expo-router';
+
 import {
     Drawer,
     DrawerBackdrop,
@@ -11,7 +13,9 @@ import {
     DrawerFooter,
   } from "@/components/ui/drawer"
 
-export default function SideDrawer({ showDrawer, setShowDrawer, tags, loggedIn }) {
+export default function SideDrawer({ showDrawer, setShowDrawer, tags, loggedIn, setToken }) {
+  const router = useRouter();
+
     return (
         <Drawer
         isOpen={showDrawer}
@@ -37,7 +41,13 @@ export default function SideDrawer({ showDrawer, setShowDrawer, tags, loggedIn }
                     <ButtonText>Log Out</ButtonText>
                 </Button>
                 ) : (
-                <Button onPress={() => setShowDrawer(false)}>
+                <Button onPress={() => {
+                  setShowDrawer(false)
+                  router.push({
+                    pathname: '/(screens)/SignInScreen', 
+                    params: { setToken: setToken }
+                  });
+                  }}>
                     <ButtonText>Log In/Sign Up</ButtonText>
                 </Button>
                 )}    
