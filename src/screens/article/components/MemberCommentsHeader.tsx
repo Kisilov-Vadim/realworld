@@ -36,6 +36,7 @@ const MemberCommentsHeader = () => {
           value={comment}
           onChangeText={setComment}
           isDisabled={isLoading}
+          autoCompleteType={undefined}
           placeholder="Leave your comment"
         />
       </View>

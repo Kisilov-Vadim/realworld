@@ -30,13 +30,13 @@ const Settings = () => {
               size="lg"
               value={user?.image}
               placeholder="Avatar"
-              disabled={isUpdating}
+              isDisabled={isUpdating}
               onChangeText={onImageChange}
             />
             <Input
               mb={4}
               size="lg"
-              disabled={isUpdating}
+              isDisabled={isUpdating}
               value={user?.username}
               placeholder="Username"
               onChangeText={onUserNameChange}
@@ -48,20 +48,21 @@ const Settings = () => {
               numberOfLines={4}
               isDisabled={isUpdating}
               placeholder="Short bio about you"
+              autoCompleteType={undefined}
               onChangeText={onBioChange}
             />
             <Input
               mb={4}
               size="lg"
               value={user?.email}
-              disabled={isUpdating}
+              isDisabled={isUpdating}
               placeholder="Email"
               onChangeText={onEmailChange}
             />
             <Input
               mb={4}
               size="lg"
-              disabled={isUpdating}
+              isDisabled={isUpdating}
               placeholder="New Password"
               onChangeText={onPasswordChange}
             />

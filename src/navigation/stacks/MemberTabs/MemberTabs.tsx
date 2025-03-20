@@ -12,9 +12,9 @@ type TabBarIcon = {
 };
 
 const HomeTabBarIcon = ({focused, color, size}: TabBarIcon) => {
-  if (focused) return <Ionicons name="ios-home" size={size} color={color} />;
+  if (focused) return <Ionicons name="home" size={size} color={color} />;
 
-  return <Ionicons name="ios-home-outline" size={size} color={color} />;
+  return <Ionicons name="home-outline" size={size} color={color} />;
 };
 
 const PersonalTabBarIcon = ({focused, color, size}: TabBarIcon) => {
