@@ -1,9 +1,9 @@
 import React from 'react';
 import {ScrollView} from 'react-native';
-import {View} from 'react-native-ui-lib';
 import {observer} from 'mobx-react-lite';
+import {Box, Button, Spinner} from 'native-base';
+import {View, TextField} from 'react-native-ui-lib';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Box, Button, Input, Spinner, TextArea} from 'native-base';
 
 import useSettings from './useSettings';
 
@@ -24,57 +24,42 @@ const Settings = () => {
     <SafeAreaView style={{flex: 1}}>
       <ScrollView>
         <View flexG paddingH-s5>
-          <Box alignItems="center">
-            <Input
-              mb={4}
-              size="lg"
-              value={user?.image}
-              placeholder="Avatar"
-              isDisabled={isUpdating}
-              onChangeText={onImageChange}
-            />
-            <Input
-              mb={4}
-              size="lg"
-              isDisabled={isUpdating}
-              value={user?.username}
-              placeholder="Username"
-              onChangeText={onUserNameChange}
-            />
-            <TextArea
-              mb={4}
-              size="lg"
-              value={user?.bio}
-              numberOfLines={4}
-              isDisabled={isUpdating}
-              placeholder="Short bio about you"
-              autoCompleteType={undefined}
-              onChangeText={onBioChange}
-            />
-            <Input
-              mb={4}
-              size="lg"
-              value={user?.email}
-              isDisabled={isUpdating}
-              placeholder="Email"
-              onChangeText={onEmailChange}
-            />
-            <Input
-              mb={4}
-              size="lg"
-              isDisabled={isUpdating}
-              placeholder="New Password"
-              onChangeText={onPasswordChange}
-            />
+          <TextField
+            placeholder="Avatar"
+            onChangeText={onImageChange}
+            preset={TextField.presets.OUTLINE}
+          />
+          <TextField
+            value={user?.username}
+            placeholder="Username"
+            onChangeText={onUserNameChange}
+            preset={TextField.presets.OUTLINE}
+          />
+          <TextField
+            value={user?.bio}
+            numberOfLines={4}
+            placeholder="Short bio about you"
+            onChangeText={onBioChange}
+            preset={TextField.presets.OUTLINE}
+          />
+          <TextField
+            value={user?.email}
+            placeholder="Email"
+            onChangeText={onEmailChange}
+            preset={TextField.presets.OUTLINE}
+          />
+          <TextField
+            placeholder="New Password"
+            onChangeText={onPasswordChange}
+            preset={TextField.presets.OUTLINE}
+          />
 
-            <Button
-              colorScheme="success"
-              disabled={isUpdating}
-              onPress={onUserUpdate}
-            >
-              {isUpdating ? <Spinner color="white" /> : 'Update Settings'}
-            </Button>
-          </Box>
+          <Button
+            colorScheme="success"
+            onPress={onUserUpdate}
+          >
+            {isUpdating ? <Spinner color="white" /> : 'Update Settings'}
+          </Button>
         </View>
       </ScrollView>
       <Button

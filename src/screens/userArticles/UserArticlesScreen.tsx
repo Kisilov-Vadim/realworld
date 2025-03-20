@@ -1,9 +1,10 @@
 import React from 'react';
-import {View, Text, Avatar, TabController} from 'react-native-ui-lib';
 import {observer} from 'mobx-react-lite';
+import {View, Text, Avatar, TabController} from 'react-native-ui-lib';
+
+import {Articles} from '../../components';
 
 import useUserArticlesScreen from './useUserArticlesScreen';
-import {Articles} from '../../components';
 
 const UserArticlesScreen = () => {
   const {

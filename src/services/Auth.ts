@@ -23,5 +23,8 @@ export default {
     requests.post('/users/login', {user}),
   register: (user: RegisterUser): Promise<ResponseUser> =>
     requests.post('/users', {user}),
-  put: (user: User): Promise<ResponseUser> => requests.put('/user', {user}),
+  put: (user: User): Promise<ResponseUser> => {
+    console.log('newUser', user);
+    return requests.put('/user', {user})
+  },
 };

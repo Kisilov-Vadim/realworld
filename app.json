@@ -36,6 +36,9 @@
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
-    }
+    },
+    "plugins": [
+      "expo-secure-store"
+    ]
   }
 }

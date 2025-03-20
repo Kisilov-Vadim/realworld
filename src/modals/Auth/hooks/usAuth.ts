@@ -9,8 +9,6 @@ import useStore from './useStore';
 const useAuth = () => {
   const {isLoading, user, errors} = useStore();
 
-  const [show, setShow] = useState(false);
-
   const onNameChange = useCallback((value: string) => {
     AuthStore.setUsername(value);
   }, []);
@@ -42,13 +40,11 @@ const useAuth = () => {
   useEffect(() => () => AuthStore.clear(), []);
 
   return {
-    show,
-    isLoading,
     user,
+    isLoading,
     onNameChange,
     onEmailChange,
     onPasswordChange,
-    setShow,
     onLogin,
     onSignUp,
   };

@@ -19,7 +19,7 @@ const Auth = ({route}: AuthModalProps) => {
   const goToSignUp = () => setIsLoginMode(false);
 
   return (
-    <View flex center paddingH-s5>
+    <View flex centerV paddingH-s5>
       {isLoginMode ? (
         <Login goToSignUp={goToSignUp} />
       ) : (

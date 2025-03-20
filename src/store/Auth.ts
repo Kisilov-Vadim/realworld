@@ -31,8 +31,8 @@ class Store {
 
   get authValues() {
     return {
-      username: this.username,
       email: this.email,
+      username: this.username,
       password: this.password,
     };
   }
@@ -56,7 +56,13 @@ class Store {
     const api =
       type === RequestType.login ? AuthService.login : AuthService.register;
 
-    api(this.authValues)
+    const {email, password} = this.authValues;
+
+    const params = type === RequestType.login ?
+      {email, password} :
+      this.authValues;
+
+    api(params as any)
       .then(
         action(({user}) => {
           UserStore.setUser(user);

@@ -1,8 +1,7 @@
 import React from 'react';
-import {View, Text} from 'react-native-ui-lib';
-import {Button, Icon, Input, Stack} from 'native-base';
-import {MaterialIcons} from '@expo/vector-icons';
+import {Button} from 'native-base';
 import {observer} from 'mobx-react-lite';
+import {View, Text, TextField} from 'react-native-ui-lib';
 
 import useAuth from '../hooks/usAuth';
 
@@ -12,85 +11,61 @@ type SignUpProps = {
 
 const SignUp = observer(({goToLogin}: SignUpProps) => {
   const {
-    show,
-    isLoading,
     user,
+    isLoading,
     onNameChange,
     onEmailChange,
     onPasswordChange,
-    setShow,
     onSignUp,
   } = useAuth();
 
   return (
     <>
-      <Text text30BO blue30>
-        Sign Up
-      </Text>
+      <View center>
+        <Text text30BO blue30>
+          Sign up
+        </Text>
+      </View>
       <View marginT-s5>
-        <Stack space={4} w="100%" alignItems="center">
-          <Input
-            placeholder="Username"
-            value={user.username}
-            onChangeText={onNameChange}
-            autoCapitalize="none"
-            autoCorrect={false}
-            size="lg"
-            w={{
-              base: '75%',
-              md: '25%',
-            }}
-          />
-          <Input
-            placeholder="Email"
-            value={user.email}
-            onChangeText={onEmailChange}
-            autoCapitalize="none"
-            autoCorrect={false}
-            size="lg"
-            w={{
-              base: '75%',
-              md: '25%',
-            }}
-          />
-          <Input
-            placeholder="Password"
-            type={show ? 'text' : 'password'}
-            value={user.password}
-            onChangeText={onPasswordChange}
-            autoCapitalize="none"
-            autoCorrect={false}
-            size="lg"
-            w={{
-              base: '75%',
-              md: '25%',
-            }}
-            InputRightElement={
-              <Icon
-                as={
-                  <MaterialIcons
-                    name={show ? 'visibility' : 'visibility-off'}
-                  />
-                }
-                size={5}
-                mr="2"
-                color="muted.400"
-                onPress={() => setShow(!show)}
-              />
-            }
-          />
-          <Button
-            isLoading={isLoading}
-            isLoadingText="Logining..."
-            onPress={onSignUp}
-          >
-            SIGN UP
-          </Button>
+        <TextField
+          placeholder="Username"
+          value={user.username}
+          onChangeText={onNameChange}
+          autoCapitalize="none"
+          autoCorrect={false}
+          preset={TextField.presets.OUTLINE}
+        />
+        <TextField
+          placeholder="Email"
+          value={user.email}
+          onChangeText={onEmailChange}
+          autoCapitalize="none"
+          autoCorrect={false}
+          preset={TextField.presets.OUTLINE}
+        />
+        <TextField
+          placeholder="Password"
+          value={user.password}
+          onChangeText={onPasswordChange}
+          autoCapitalize="none"
+          autoCorrect={false}
+          preset={TextField.presets.OUTLINE}
+        />
+
+        <Button
+          isLoading={isLoading}
+          isLoadingText="Logining..."
+          onPress={onSignUp}
+        >
+          SIGN UP
+        </Button>
+
+        <View centerH>
           <Text text70>or</Text>
           <Button variant="link" onPress={goToLogin}>
             Login
           </Button>
-        </Stack>
+        </View>
       </View>
     </>
   );
