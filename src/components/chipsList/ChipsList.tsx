@@ -11,15 +11,17 @@ type Chip = {
 };
 
 type ChipsListProps = {
-  data: Chip[];
   isPreview?: boolean;
   isLoading?: boolean;
+  data?: Chip[];
 };
 
 const ChipsList = ({data, isLoading, isPreview}: ChipsListProps) => {
   if (isLoading) {
     return <SkeletonChipsList />;
   }
+
+  if (!data?.length) return null;
 
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>

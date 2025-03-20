@@ -7,7 +7,7 @@ import _superagent, {
 
 import {AuthStore, UserStore} from '../store';
 
-export const API_URI = 'http://localhost:3000/api';
+export const API_URI = 'https://node-express-conduit.appspot.com/api';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 

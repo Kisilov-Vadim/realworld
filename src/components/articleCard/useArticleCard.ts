@@ -15,7 +15,7 @@ export type ArticleCardProps = {
 const useArticleCard = ({article}: ArticleCardProps) => {
   const tagsList = useMemo(
     () =>
-      article.tagList.map((title) => ({
+      article.tagList?.map((title) => ({
         title,
       })),
     [article.tagList]

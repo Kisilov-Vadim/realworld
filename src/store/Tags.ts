@@ -1,7 +1,7 @@
 import {action, makeAutoObservable} from 'mobx';
-import ErrorMessages from '../errorMessages';
 
 import {TagsService} from '../services';
+import ErrorMessages from '../errorMessages';
 import {TagsResponse} from '../services/Tags';
 
 class Store {
@@ -19,7 +19,7 @@ class Store {
     TagsService.get()
       .then(
         action(({tags}: TagsResponse) => {
-          this.tags = tags;
+          this.tags = tags.filter(Boolean);
         })
       )
       .catch(

@@ -28,13 +28,13 @@ const CreateArticle = (props: CreateArticleProps) => {
             size="lg"
             value={data.title}
             placeholder="Title"
-            disabled={isLoading}
+            isDisabled={isLoading}
             onChangeText={onTitleChange}
           />
           <Input
             mb={4}
             size="lg"
-            disabled={isLoading}
+            isDisabled={isLoading}
             value={data.description}
             placeholder="What's this article about?"
             onChangeText={onDescriptionChange}
@@ -45,6 +45,7 @@ const CreateArticle = (props: CreateArticleProps) => {
             value={data.body}
             numberOfLines={4}
             isDisabled={isLoading}
+            autoCompleteType={undefined}
             placeholder="Write your article (in markdown)"
             onChangeText={onBodyChange}
           />

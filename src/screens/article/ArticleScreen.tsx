@@ -113,7 +113,7 @@ const ArticleScreen = ({route}: ArticleScreenProps) => {
       <View paddingH-s5 marginB-s5>
         <ChipsList
           isPreview
-          data={article.tagList.map((title) => ({
+          data={article.tagList?.map((title) => ({
             title,
           }))}
         />
