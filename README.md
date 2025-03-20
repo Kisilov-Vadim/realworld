@@ -2,6 +2,14 @@
 
 Welcome to my implementation of the RealWorld application! Follow the steps below to get started and set up both the server and client parts of the application.
 
+## App Example In Expo
+
+Install Expo app from mobile stores and scan QR code according your device:
+
+Qr Code
+:-------------------------:
+![](./assets/qr.png)
+
 ## 1. Clone the Project
 
 To get started, begin by cloning this repository to your local machine.
@@ -11,7 +19,7 @@ git clone https://github.com/Kisilov-Vadim/realworld.git
 cd realworld
 ```
 
-## 2. Set Up the Server
+## 2. Set Up the Server (Just, when to work with local server, use open api, if possible)
 
 ### 2.1 Install Dependencies
 
@@ -73,3 +81,9 @@ npm start
 ---
 
 You're all set! Happy coding! 🎉
+
+## How to publish last changes to Expo
+
+```sh
+eas update
+```
